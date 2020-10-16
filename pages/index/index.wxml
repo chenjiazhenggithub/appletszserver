@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="container">
+  <view>
+    <image src="./images/背景切图.png" class="top-imgae"></image>
+    <text class="top-text"> 北京华阳汽车销售服务有限公司 </text>
+    <view class="top-box">
+      <block >
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      </block>
+    </view>
+  </view>
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  </view> -->
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+  <view wx:for="{{menulist}}" wx:key="*this" wx:for-item="menuItem" class="menu-one">
+    <view wx:for="{{menuItem.towmenu}}" wx:key="{{item.index}}" wx:for-item="item" class="menu-two" bindtap='logBtn' data-src="{{item.src}}">
+      <image bindtap="bindViewTap" class="twomenu-image" src="{{item.iamge}}" mode="cover"></image>
+      <text class="twomenu-text">{{item.title}}</text>
+    </view>
+  </view>
+  <!-- <view>
+    <button bindtap="getScancode"> 扫一扫 </button>
+  </view> -->
+</view>

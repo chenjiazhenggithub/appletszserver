@@ -1,0 +1,80 @@
+/**index.wxss**/
+.top-imgae {
+  width: 750rpx;
+  height: 250rpx;
+  position: relative;
+}
+.top-text {
+  position: absolute;
+  top: 44rpx;
+  right: 15rpx;
+  font-size: 26.82rpx;
+}
+
+.top-box {
+  display: flex;
+  flex-direction: unset;
+  width: 722rpx;
+  height: 146rpx;
+  background-color: #e6e6e6;
+  position: absolute;
+  top: 141rpx;
+  left: 15rpx;
+  border-radius: 30rpx;
+  align-items: center;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: unset;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 75rpx;
+  height: 75rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+  /* padding-top: 38rpx; */
+  font-size: 27.5rpx;
+}
+
+.usermotto {
+  padding-bottom: 24rpx;
+  width: 96%;
+  border-bottom: 2px solid #e7e7e7;
+  margin: 0 auto;
+  margin-top: 112rpx;
+}
+.user-motto {
+  font-size: 30rpx;
+  padding-left: 20rpx;
+}
+
+.menu-one {
+  display: flex;
+  height: 172rpx;
+  width: 96%;
+  margin: auto;
+  /* justify-content: start; */
+}
+
+.menu-two{
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.twomenu-image {
+  width: 57rpx;
+  height: 47rpx;
+  padding-top: 66rpx;
+}
+.twomenu-text {
+  font-size: 24.12rpx;
+  padding-top: 36rpx;
+}
