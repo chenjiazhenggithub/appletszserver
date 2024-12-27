@@ -1,0 +1,57 @@
+<!--scan.wxml-->
+<view class="box" style="overflow: hidden;">
+  <view class="scan-view">
+  <view style="width: 100%;height: 330rpx;">
+    <image class="logo" src="../index/images/home-logo.png"></image>
+    <view class="textbox">
+      <span class="toptext">北京商周科技有限公司</span>
+      <span class="bottomtext">Beijing Shangzhou Technology Co.,LTD</span>
+    </view>
+  </view>
+  <view style="width: 100%;height:100%;">
+    <van-tabs active="{{ active }}" bind:click="changetabs">
+      <van-tab title="单店用户登录" style="overflow: hidden;">
+        <view class='scan-border'>
+          <camera class='scan-camera' mode="scanCode" binderror="cameraError" bindscancode='scancode' frame-size='large' flash='off'>
+          </camera>
+          <view class="scan-animation {{active === 1 ? 'hide' : ''}}"  animation="{{animation}}"></view>
+          <image class='cover-corner' src='../index/images/border.png'></image>
+          <!-- 这里可以处理其他内容 -->
+        </view>
+        <view class="title-bottom">请扫描会员软件提供的登录二维码</view>
+        <view>
+          <view class="login-box">
+            <view class="text-box" bindtap="imagelogin" style="margin-left: 15rpx;">
+              <image class="phone-box" src='../index/images/phonebox.png'></image>
+              <view  class="icontxt">相册</view>
+            </view>
+            <view class="text-box" bindtap="filelogin">
+              <image class="phone-box" src='../index/images/filebox.png'></image>
+              <view class="icontxt">微信图片</view>
+            </view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="集团用户登录" style="height: 760rpx;">
+        <view style="width: 603rpx;margin: 0 auto;padding: 58rpx 0 86rpx 0;height: 100%;">
+          <van-cell-group>
+            <van-field
+            model:value="{{ GuestName }}"
+            placeholder="请输入用户名"
+            />
+            <van-field
+            custom-style="margin-top: 37rpx !important;"
+            model:value="{{ RegisterNo }}"
+            password="true"
+            placeholder="请输入密码"
+            />
+          </van-cell-group>
+        </view>
+        <view class="button-box">
+          <van-button custom-style="border-radius: 20px !important;" type="default" bind:click="getModalList">登录</van-button>
+        </view>
+      </van-tab>
+    </van-tabs>
+  </view>
+</view>
+</view>

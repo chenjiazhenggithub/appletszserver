@@ -1,0 +1,12 @@
+<!--scan.wxml-->
+<view class="box">
+  <view class="scan-view">
+  <view class='scan-border'>
+    <camera class='scan-camera' mode="scanCode" binderror="cameraError" bindscancode='scancode' frame-size='large' flash='off'>
+        <!-- <cover-image class='cover-corner' src='../index/images/边框.png'></cover-image> -->
+    </camera>
+    <!-- 这里可以处理其他内容 -->
+  </view>
+  <view class="title-bottom">请扫描会员软件提供的登录二维码</view>
+</view>
+</view>

@@ -1,0 +1,39 @@
+<view style="background-color: #F5F5F5;min-height: 100vh;">
+  <view style="overflow: hidden;">
+    <image bind:tap="openhistory" class="card-top-img" src="../index/images/card-top-img.png" mode="cover"></image>
+  </view>
+  <view>
+    <view wx:for="{{cardlist}}" wx:key="index" wx:for-item="menuItem" class="cardbox">
+      <view style="display: flex;">
+        <view class="content_leftbox">
+          <view class="content_vouchers">抵用劵</view>
+        </view>
+        <view class="content_contbox">
+          <view>{{menuItem.FavorableName}}</view>
+        </view>
+        <view bind:tap="tourl" data-url="/pages/qrcode/qrcode" data-number="{{index}}" class="content_rightbox" wx:if="{{!menuItem.IsAllowsfree}}">
+          <image class="code" src="../index/images/qrcode.png" mode="cover"/>
+        </view>
+      </view>
+      <view style="display: flex;">
+        <view class="content_leftbottombox">
+            <view class="number">{{menuItem.Balance}}</view>
+            <view class="unti">张</view>
+        </view>
+        <view class="content_contentbottonmbox">
+          <view>{{menuItem.Startdate}}-{{menuItem.Enddate}}有效</view>
+          <view wx:if="{{menuItem.Remark !== ''}}" bind:tap="openremark" data-number="{{index}}" style="padding-top: 10rpx;">使用说明
+            <van-icon data-number="{{index}}" style="margin-left: 5rpx;" name="{{menuItem.fold ? 'arrow-up' : 'arrow-down'}}" />
+          </view>
+        </view>
+        <view class="buttonbox" wx:if="{{menuItem.IsAllowsfree}}">
+          <view bind:tap="tourl" data-url="/pages/transfer/transfer" data-number="{{index}}" class="content_button">转赠</view>
+        </view>
+      </view>
+      <view wx:if="{{menuItem.fold}}" class="border"></view>
+      <view wx:if="{{menuItem.fold}}" class="remarkbox" style="{{menuItem.fold ? '' : 'height:0;'}}">
+        <p>{{menuItem.Remark}}</p>
+      </view>
+    </view>
+  </view>
+</view>

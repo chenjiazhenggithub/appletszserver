@@ -1,12 +1,17 @@
 <!--index.wxml-->
 <view class="container">
-  <view>
-    <image src="./images/背景切图.png" class="top-imgae"></image>
-    <text class="top-text"> 北京华阳汽车销售服务有限公司 </text>
+  <view style="overflow:hidden;">
+    <image src="./images/beijing.png" class="top-imgae" binderror="console"></image>
+    <text class="top-text"> {{name}} </text>
     <view class="top-box">
+      <image src="./images/zhuxiao.png" class="twomenu-image2" bindtap='cancellation'></image>
       <block >
-        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <view class="userinfo-avatar">
+          <open-data type="userAvatarUrl"></open-data>
+        </view>
+        <text class="userinfo-nickname">{{UserName}}</text>
+        <!-- <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
       </block>
     </view>
   </view>
@@ -16,13 +21,18 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-  <view wx:for="{{menulist}}" wx:key="*this" wx:for-item="menuItem" class="menu-one">
-    <view wx:for="{{menuItem.towmenu}}" wx:key="{{item.index}}" wx:for-item="item" class="menu-two" bindtap='logBtn' data-src="{{item.src}}">
-      <image bindtap="bindViewTap" class="twomenu-image" src="{{item.iamge}}" mode="cover"></image>
+  <van-grid class="van-grid" border="false">
+    <van-grid-item bind:click="logBtn" data-src="{{menuItem.src}}" wx:if="{{menuItem.show}}" class="gridbox" wx:for="{{menulist}}" wx:key="index" wx:for-item="menuItem" text="{{menuItem.title}}">
+      <view slot="icon">
+        <image class="{{menuItem.class}}" src="{{menuItem.iamge}}" mode="cover"></image>
+      </view>
+    </van-grid-item>
+  </van-grid>
+  <!-- <view wx:for="{{menulist}}" wx:key="index" wx:for-item="menuItem" class="menu-one" >
+    <view wx:for="{{menuItem.towmenu}}" wx:key="index" wx:for-item="item" class="menu-two" bindtap='logBtn' data-src="{{item.src}}" hidden="{{!item.show}}">
+      <image class="{{item.class}}" src="{{item.iamge}}" mode="cover"></image>
       <text class="twomenu-text">{{item.title}}</text>
     </view>
-  </view>
-  <!-- <view>
-    <button bindtap="getScancode"> 扫一扫 </button>
+    <view></view>
   </view> -->
 </view>

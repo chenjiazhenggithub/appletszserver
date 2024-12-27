@@ -1,0 +1,145 @@
+/**scan.wxss**/
+page {
+  background-color: #ffffff;
+}
+.title {
+  font-weight: bold;
+  color: #1a1a1a;
+  font-family: fantasy;
+  padding-top: 60rpx;
+}
+
+.title-bottom {
+padding-top: 38rpx;
+color: #c1c1c1;
+font-size: 13px;
+text-align: center;
+}
+
+.login-box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 44rpx;
+}
+
+.logo {
+  width: 100%;
+  height: 330rpx;
+  position: absolute;
+}
+
+.textbox {
+  position: relative;
+  left: 69rpx;
+  top: 97rpx;
+}
+
+.icontxt {
+  margin-top: 10rpx;
+}
+
+.toptext {
+  display: block;
+  font-size: 21px;
+  color: #ffffff;
+  font-family: '思源黑体CN';
+}
+
+.bottomtext {
+  display: block;
+  font-size: 11px;
+  color: #ffffff;
+  font-family: '思源黑体CN';
+  margin-top: 20rpx;
+}
+
+.box {
+  height: 100%;
+}
+
+.scan-view {
+  width: 100%;
+  /* padding-bottom: 230rpx; */
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  /* position: fixed; */
+  align-items: center;
+  justify-content: space-around;
+}
+
+.button-box {
+  width: 73%;
+  margin: 0 auto;
+  border-radius: 5% !important;
+}
+
+.van-button {
+  width: 100% !important;
+  background-color: #c0a474 !important;
+  border-radius: 5% !important;
+  color: #ffffff !important;
+  height: 70rpx;
+}
+
+.scan-border {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80rpx;
+}
+
+.scan-camera {
+  width: 450rpx;
+  height: 450rpx;
+  overflow: visible !important;
+  /* overflow: hidden; */
+  /* border-radius: 5%; */
+  border-radius: 6rpx;
+  /* padding: 30rpx; */
+}
+
+.cover-corner {
+  width: 470rpx;
+  height: 470rpx;
+  position: absolute;
+  top: 68.8rpx;
+  left: 140.7rpx;
+  visibility: visible !important;
+  /* background-color: red; */
+  /* border-radius: 40rpx; */
+}
+
+.phone-box {
+  width: 45rpx;
+  height: 38rpx;
+}
+
+.text-box {
+  text-align: center;
+  color: #bfa377;
+  font-size: 13px;
+}
+
+.hide {
+  display: none;
+}
+
+.scan-animation {
+  position: absolute;
+  top:0;
+  left: 152rpx;
+  width: 447rpx;
+  height: 8rpx;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.van-tabs__line {
+  width: 132rpx !important;
+  background-color: #bfa377 !important;
+}
+
+.van-tab--active {
+  border-bottom: 1px solid #bfa377;
+}

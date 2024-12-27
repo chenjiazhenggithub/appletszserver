@@ -1,75 +1,110 @@
 <view class="page-body">
+  <form bindsubmit="save">
   <view class="page-section" style="padding-top:25rpx;">
     <view class="weui-cells weui-cells_after-title">
+      <view class="musticn">*</view>
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="客户姓名"/>
+        <input class="weui-input" placeholder="客户姓名" type="text" value="{{form.GuestName}}" name="GuestName"/>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="musticn">*</view>
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input"  placeholder="手机号" type="number" value="{{form.Mobile}}" name="Mobile"/>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="musticn">*</view>
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" placeholder="车牌号" type="text" value="{{form.RegisterNo}}" name="RegisterNo"/>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="musticn">*</view>
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" placeholder="车架号" type="text" value="{{form.Vin}}" name="Vin"/>
+        <cover-image src="../index/images/phone.png" alt="" style="width:55rpx;height:21px;" bindtap="changephone"></cover-image>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title" style="height: 100%;">
+      <view class="weui-cell weui-cell_input">
+        <picker bindchange="bindPickerChange" bindcancel="bindPickerClone" value="{{index}}" range="{{BrandList}}" range-key="BrandName" class="picker">
+          <input class="weui-input" placeholder="品牌" type="text" value="{{form.Brand}}" name="Brand" disabled="true"/>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="musticn">*</view>
+      <view class="weui-cell weui-cell_input">
+        <picker bindchange="bindPickerChange1" value="{{index}}" range="{{SeriesList}}" range-key="SeriesName" class="picker">
+          <input class="weui-input" placeholder="车系" type="text" value="{{form.Series}}" name="Series" disabled="true"/>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="musticn">*</view>
+      <view class="weui-cell weui-cell_input">
+        <picker bindchange="bindPickerChange3" value="{{index}}" range="{{DictionaryList}}" range-key="Name" class="picker">
+          <input class="weui-input" placeholder="部门" type="text" value="{{form.Department}}" name="Department" disabled="true"/>
+        </picker>
       </view>
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input"  placeholder="手机号"/>
+        <picker bindchange="bindPickerChange2" bindcancel="bindPickerClone1" value="{{index}}" range="{{ModelList}}" range-key="ModelName" class="picker">
+          <input class="weui-input" placeholder="车型" type="text" value="{{form.Model}}" name="Model" disabled="true"/>
+        </picker>
       </view>
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="车牌号"/>
+        <input class="weui-input" placeholder="地址" type="text" value="{{form.Address}}" name="Address"/>
       </view>
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="车架号"/>
+        <input class="weui-input" placeholder="身份证号" type="idcard" value="{{form.SfCardId}}" name="SfCardId"/>
       </view>
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="车系"/>
-      </view>
+      <picker mode="date" bindchange="bindTimeChange" bindcancel="bindPickerClone2">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" placeholder="购车日期" value="{{form.BuyDate}}" name="BuyDate" disabled="true"/>
+        </view>
+      </picker>
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="车型"/>
-      </view>
-    </view>
-  </view>
-  <view class="page-section">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="地址"/>
-      </view>
-    </view>
-  </view>
-  <view class="page-section">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="身份证号"/>
-      </view>
-    </view>
-  </view>
-  <view class="page-section">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="购车日期"/>
-      </view>
-    </view>
-  </view>
-  <view class="page-section">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder="保险到期日"/>
-      </view>
+      <picker mode="date" bindchange="bindTimeChange1" bindcancel="bindPickerClone3">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" placeholder="保险到期日" value="{{form.BxEndDate}}" name="BxEndDate" disabled="true"/>
+        </view>
+      </picker>
     </view>
   </view>
   <view class="button">
-    <button class="btn" style="width:100%;">确认办卡</button>
+    <button class="btn" style="width:100%;" form-type="submit">确认办卡</button>
   </view>
+</form>
 </view>

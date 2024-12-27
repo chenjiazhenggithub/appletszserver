@@ -7,7 +7,7 @@
 .top-text {
   position: absolute;
   top: 44rpx;
-  right: 15rpx;
+  left: 15rpx;
   font-size: 26.82rpx;
 }
 
@@ -35,6 +35,7 @@
   height: 75rpx;
   margin: 20rpx;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .userinfo-nickname {
@@ -57,10 +58,21 @@
 
 .menu-one {
   display: flex;
-  height: 172rpx;
+  flex-wrap: wrap;
+  height: auto;
   width: 96%;
   margin: auto;
+  align-items: center;
   /* justify-content: start; */
+}
+.van-grid {
+}
+.van-grid-item {
+  margin-top: 20rpx !important;
+}
+
+.van-grid-item__content:after {
+  border:none !important;
 }
 
 .menu-two{
@@ -70,11 +82,29 @@
   align-items: center;
 }
 .twomenu-image {
-  width: 57rpx;
-  height: 47rpx;
-  padding-top: 66rpx;
+  width: 55rpx;
+  height: 52rpx;
+  margin-bottom: 36rpx;
+}
+.twomenu-image1 {
+  width: 62rpx;
+  height: 52rpx;
+}
+.twomenu-image2 {
+  width: 48rpx;
+  height: 54rpx;
+  position: absolute;
+  right: 40rpx;
+}
+.twomenu-image4 {
+  width: 62rpx;
+  height: 55rpx;
+}
+.twomenu-image5 {
+  width: 49rpx;
+  height: 55rpx;
 }
 .twomenu-text {
   font-size: 24.12rpx;
-  padding-top: 36rpx;
+  /* padding-top: 36rpx; */
 }

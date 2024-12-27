@@ -1,0 +1,72 @@
+<view data-role="page" id="voucher">
+  <view data-role="content">
+    <van-button bind:click="openmodal" class="button" disabled="{{buttondisabled}}" size="large" id="addinfomation" color="#e0002b">新增转赠信息</van-button>
+    <ul id="card" class='shadow'>
+      <li wx:for="{{data}}" class="libox" wx:key="index" wx:for-item="item" style="background-color: #ffffff;">
+        <view class="top">
+          <view class="top_left">
+            <span>{{item.UseName}}</span>
+            <view class="border"></view>
+            <span>{{item.UseMobile}}</span>
+          </view>
+          <view style="color:#6f6f6f;">{{item.UseRegisterno}}</view>
+        </view>
+        <view style="color:#1f1f1f;margin-top:16px;">{{item.UseBrand}}</view>
+        <view style="display: flex; justify-content: flex-end;;margin-top:20px;">
+          <view bind:tap="delete" data-isnext="{{item.IsVerification}}" data-id="{{item.Id}}" class="{{item.IsVerification ? 'disabledbutton leftbutton' : 'leftbutton'}}">删除</view>
+          <view bind:tap="tourl" data-number="{{index}}" class="{{item.IsVerification ? 'disabledbutton rightbutton' : 'rightbutton'}}">生成核销码</view>
+        </view>
+      </li>
+    </ul>
+  </view>
+  <view wx:if="{{modalshow}}" id="paybox" class="layermbox layermbox1">
+    <view class="laymshade">
+      <view class="layermmain">
+        <view class="section">
+          <view class="layermchild demo-class layermanim" style="width: 88%;height:auto;border-radius: 0.8rem;">
+            <view class="layermcont">
+              <view style="height:auto;">
+                <view class="modal-background modal-head"></view>
+              </view>
+              <view class="buttonbox-text-new modal-head1">
+                <span>编辑转赠信息</span>
+                <view class="layermend" id="closebutton">
+                  <van-icon bind:click="closemodal" style="display: grid;" size="19px" name="cross" color="#ffffff" />
+                </view>
+              </view>
+              <view class="content_box" id="login">
+                <view data-role="content" style="overflow-x: hidden;height: 330px;" class="ui-content-3">
+                  <view class="wapper">
+                    <view class="items newbgColor1">
+                      <label for="registerno">车牌号</label>
+                      <input type="text" bindinput="onInput" name="registerno" id="registerno" data-role="none" value="{{formSearch.use_registerno}}" />
+                    </view>
+                    <view class="items newbgColor1">
+                      <label for="brand">品牌</label>
+                      <input type="text" bindinput="onInput1" name="brand " id="brand" data-role="none" value="{{formSearch.use_Brand}}" />
+                    </view>
+                    <view class="items newbgColor1">
+                      <label for="username" style="width: 32%;">使用人姓名</label>
+                      <input type="text" bindinput="onInput2" name="username" id="username" data-role="none" value="{{formSearch.use_name}}" />
+                    </view>
+                    <view class="items newbgColor1">
+                      <label for="mobile" style="width: 38%;">使用人联系电话</label>
+                      <input type="tel" bindinput="onInput3" style="width: 54%;" name="mobile" id="mobile" data-role="none" value="{{formSearch.use_mobile}}" />
+                    </view>
+                    <!-- <view class="check">
+                      <van-checkbox value="{{ checked }}" shape="square">
+                        是否转增已升级券
+                      </van-checkbox>
+                    </view> -->
+                  </view>
+                </view>
+              </view>
+              <van-button disabled='{{buttonloading}}'  loading="{{buttonloading}}"  bind:click="save" class="button" style="margin-bottom:50px;" size="large" id="addinfomation" color="#e0002b">确定</van-button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <van-dialog id="van-dialog" />
+</view>

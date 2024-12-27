@@ -1,0 +1,36 @@
+<view id="history">
+  <view>
+    <view id="tab">
+      <van-dropdown-menu class="leftsearch">
+        <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+      </van-dropdown-menu>
+      <van-search use-right-icon-slot="true" bind:change="oninput" bind:clear="clear" bind:search="getList" left-icon="" class="rightsearch" value="{{ number }}" placeholder="">
+        <view slot="right-icon">
+          <van-icon name="search" bind:click="getList" size="20px"/>
+        </view>
+      </van-search>
+    </view>
+  </view>
+  <van-empty wx:if="{{data.length === 0}}" description="暂无数据" />
+  <view wx:if="{{data.length > 0}}" data-role="content" class="ui-content-2" id="content">
+    <view>
+      <ul id="all">
+        <li class="libox" wx:for="{{data}}" wx:key="index" wx:for-item="item">
+          <view class="top">
+            <view class="top_left" style="width: 75%;">
+              <span style="margin: 2.5% 0;"> {{item.UseName}} </span>
+              <view class="border"></view>
+              <span style="margin: 2.5% 0;">{{item.UseMobile}}</span>
+            </view>
+            <view style="color:#6f6f6f;">{{item.UseRegisterno}}</view>
+          </view>
+          <view style="color:#1f1f1f;margin-top:16px;">{{item.UseBrand}}</view>
+          <view style="display: flex; justify-content: space-between;margin-top:20px;">
+            <view style="color:#616161;">{{item.CouponName}}</view>
+            <view style="color:#d1d3d4;">{{item.VerificationDate}} </view>
+          </view>
+        </li>
+      </ul>
+    </view>
+  </view>
+</view>

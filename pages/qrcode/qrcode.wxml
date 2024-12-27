@@ -1,0 +1,41 @@
+<view id="allianceCode">
+  <view wx:if="{{isshow}}" id="imgPast"></view>
+  <view class="alliancebox" data-role="page">
+    <view class="modalbox">
+      <view class="box_top">
+        <view>
+          <p wx:if="{{data.UpgradeRegisterNo !== null}}" class="all-card">{{data.UpgradeRegisterNo}}</p>
+          <p class="timetext">{{text}}</p>
+        </view>
+      </view>
+      <view class="border" style="top: 0.1rem;"></view>
+      <view class="coupon">
+        <view class="coupon_text"> </view>
+        <view class="coupon_btn"></view>
+      </view>
+      <view class="box_bottom">
+        <view style="padding-top: 0.8rem;">
+          <p class="card-num">{{data.CouponNumber}}</p>
+        </view>
+        <view class="codebox">
+          <image class="codeborder" src="../index/images/codeborder.png">
+            <canvas style="height: 250rpx;width: 250rpx;display: block;" class="card-code" canvas-id="qrTarget"></canvas>
+          </image>
+        </view>
+        <view style="text-align: center;">
+          <p style="margin-bottom: 0.5rem;">{{data.FavorableName}}</p>
+          <p class="tips">请在消费前出示此券</p>
+          <p class="time">有效期：{{data.StartDate}} - {{data.EndDate}}</p>
+        </view>
+        <view class="border" style="top: 0.1rem;"></view>
+        <view class="footer">
+          <view bind:tap="opendescription" style="display: flex;justify-content: space-between;align-items: center;">
+            <p class="card-desc">商品详情</p>
+            <van-icon name="{{fold ? 'arrow-down' : 'arrow'}}" style="margin-right: 30rpx;"/>
+          </view>
+          <span class="{{fold ? 'desctext' : 'desctext active'}}" id="detiles">{{data.Description}}</span>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
