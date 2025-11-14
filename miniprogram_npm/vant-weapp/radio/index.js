@@ -34,6 +34,7 @@ VantComponent({
             instance.$emit('change', value);
         },
         onChange(event) {
+            console.log(event);
             this.emitChange(this.data.name);
         },
         onClickLabel() {

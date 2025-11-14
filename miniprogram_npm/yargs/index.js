@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1719199291429, function(require, module, exports) {
+__DEFINE__(1762934369890, function(require, module, exports) {
 
 // classic singleton yargs API, to use yargs
 // without running as a singleton do:
@@ -46,8 +46,8 @@ function singletonify (inst) {
   })
 }
 
-}, function(modId) {var map = {"./yargs":1719199291430,"./build/lib/process-argv":1719199291446}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291430, function(require, module, exports) {
+}, function(modId) {var map = {"./yargs":1762934369891,"./build/lib/process-argv":1762934369907}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369891, function(require, module, exports) {
 
 
 // an async function fails early in Node.js versions prior to 8.
@@ -63,8 +63,8 @@ exports.rebase = rebase
 // allow consumers to directly use the version of yargs-parser used by yargs
 exports.Parser = Parser
 
-}, function(modId) { var map = {"./build/lib/yargs":1719199291431}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291431, function(require, module, exports) {
+}, function(modId) { var map = {"./build/lib/yargs":1762934369892}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369892, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isYargsInstance = exports.rebase = exports.Yargs = void 0;
@@ -1256,8 +1256,8 @@ function isYargsInstance(y) {
 }
 exports.isYargsInstance = isYargsInstance;
 
-}, function(modId) { var map = {"./command":1719199291432,"./common-types":1719199291433,"./yerror":1719199291437,"./usage":1719199291439,"./argsert":1719199291436,"./completion":1719199291441,"./validation":1719199291443,"./obj-filter":1719199291440,"./apply-extends":1719199291445,"./middleware":1719199291435,"./process-argv":1719199291446,"./is-promise":1719199291434}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291432, function(require, module, exports) {
+}, function(modId) { var map = {"./command":1762934369893,"./common-types":1762934369894,"./yerror":1762934369898,"./usage":1762934369900,"./argsert":1762934369897,"./completion":1762934369902,"./validation":1762934369904,"./obj-filter":1762934369901,"./apply-extends":1762934369906,"./middleware":1762934369896,"./process-argv":1762934369907,"./is-promise":1762934369895}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369893, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isCommandBuilderCallback = exports.isCommandBuilderDefinition = exports.isCommandHandlerDefinition = exports.command = void 0;
@@ -1675,8 +1675,8 @@ function isCommandBuilderOptionDefinitions(builder) {
     return typeof builder === 'object';
 }
 
-}, function(modId) { var map = {"./common-types":1719199291433,"./is-promise":1719199291434,"./middleware":1719199291435,"./parse-command":1719199291438,"./yargs":1719199291431}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291433, function(require, module, exports) {
+}, function(modId) { var map = {"./common-types":1762934369894,"./is-promise":1762934369895,"./middleware":1762934369896,"./parse-command":1762934369899,"./yargs":1762934369892}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369894, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.objectKeys = exports.assertSingleKey = exports.assertNotStrictEqual = void 0;
@@ -1704,7 +1704,7 @@ function objectKeys(object) {
 exports.objectKeys = objectKeys;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291434, function(require, module, exports) {
+__DEFINE__(1762934369895, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isPromise = void 0;
@@ -1716,7 +1716,7 @@ function isPromise(maybePromise) {
 exports.isPromise = isPromise;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291435, function(require, module, exports) {
+__DEFINE__(1762934369896, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyMiddleware = exports.commandMiddlewareFactory = exports.globalMiddlewareFactory = void 0;
@@ -1775,8 +1775,8 @@ function applyMiddleware(argv, yargs, middlewares, beforeValidation) {
 }
 exports.applyMiddleware = applyMiddleware;
 
-}, function(modId) { var map = {"./argsert":1719199291436,"./is-promise":1719199291434}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291436, function(require, module, exports) {
+}, function(modId) { var map = {"./argsert":1762934369897,"./is-promise":1762934369895}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369897, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.argsert = void 0;
@@ -1843,8 +1843,8 @@ function argumentTypeError(observedType, allowedTypes, position) {
     throw new yerror_1.YError(`Invalid ${positionName[position] || 'manyith'} argument. Expected ${allowedTypes.join(' or ')} but received ${observedType}.`);
 }
 
-}, function(modId) { var map = {"./yerror":1719199291437,"./parse-command":1719199291438}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291437, function(require, module, exports) {
+}, function(modId) { var map = {"./yerror":1762934369898,"./parse-command":1762934369899}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369898, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.YError = void 0;
@@ -1858,7 +1858,7 @@ class YError extends Error {
 exports.YError = YError;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291438, function(require, module, exports) {
+__DEFINE__(1762934369899, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseCommand = void 0;
@@ -1897,7 +1897,7 @@ function parseCommand(cmd) {
 exports.parseCommand = parseCommand;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291439, function(require, module, exports) {
+__DEFINE__(1762934369900, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usage = void 0;
@@ -2439,8 +2439,8 @@ function usage(yargs, y18n) {
 }
 exports.usage = usage;
 
-}, function(modId) { var map = {"./common-types":1719199291433,"./obj-filter":1719199291440,"./yerror":1719199291437}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291440, function(require, module, exports) {
+}, function(modId) { var map = {"./common-types":1762934369894,"./obj-filter":1762934369901,"./yerror":1762934369898}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369901, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.objFilter = void 0;
@@ -2456,8 +2456,8 @@ function objFilter(original = {}, filter = () => true) {
 }
 exports.objFilter = objFilter;
 
-}, function(modId) { var map = {"./common-types":1719199291433}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291441, function(require, module, exports) {
+}, function(modId) { var map = {"./common-types":1762934369894}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369902, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.completion = void 0;
@@ -2594,8 +2594,8 @@ function isSyncCompletionFunction(completionFunction) {
     return completionFunction.length < 3;
 }
 
-}, function(modId) { var map = {"./command":1719199291432,"./completion-templates":1719199291442,"./is-promise":1719199291434,"./parse-command":1719199291438,"./common-types":1719199291433}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291442, function(require, module, exports) {
+}, function(modId) { var map = {"./command":1762934369893,"./completion-templates":1762934369903,"./is-promise":1762934369895,"./parse-command":1762934369899,"./common-types":1762934369894}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369903, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.completionZshTemplate = exports.completionShTemplate = void 0;
@@ -2648,7 +2648,7 @@ compdef _{{app_name}}_yargs_completions {{app_name}}
 `;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291443, function(require, module, exports) {
+__DEFINE__(1762934369904, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validation = void 0;
@@ -2980,8 +2980,8 @@ function validation(yargs, usage, y18n) {
 }
 exports.validation = validation;
 
-}, function(modId) { var map = {"./argsert":1719199291436,"./common-types":1719199291433,"./levenshtein":1719199291444,"./obj-filter":1719199291440}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291444, function(require, module, exports) {
+}, function(modId) { var map = {"./argsert":1762934369897,"./common-types":1762934369894,"./levenshtein":1762934369905,"./obj-filter":1762934369901}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369905, function(require, module, exports) {
 
 /*
 Copyright (c) 2011 Andrei Mackenzie
@@ -3042,7 +3042,7 @@ function levenshtein(a, b) {
 exports.levenshtein = levenshtein;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291445, function(require, module, exports) {
+__DEFINE__(1762934369906, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyExtends = void 0;
@@ -3109,8 +3109,8 @@ function applyExtends(config, cwd, mergeExtends = false) {
 }
 exports.applyExtends = applyExtends;
 
-}, function(modId) { var map = {"./yerror":1719199291437}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291446, function(require, module, exports) {
+}, function(modId) { var map = {"./yerror":1762934369898}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369907, function(require, module, exports) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getProcessArgvBin = exports.getProcessArgvWithoutBin = void 0;
@@ -3144,7 +3144,7 @@ function getProcessArgvBin() {
 exports.getProcessArgvBin = getProcessArgvBin;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1719199291429);
+return __REQUIRE__(1762934369890);
 })()
 //miniprogram-npm-outsideDeps=["yargs-parser","fs","path","y18n","set-blocking","find-up","require-main-filename","get-caller-file","util","require-directory","which-module","assert","decamelize","string-width","cliui"]
 //# sourceMappingURL=index.js.map

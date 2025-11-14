@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1719199291384, function(require, module, exports) {
+__DEFINE__(1762934369841, function(require, module, exports) {
 /*
 *copyright Ryan Day 2012
 *
@@ -18,8 +18,8 @@ __DEFINE__(1719199291384, function(require, module, exports) {
 
 module.exports = require('./server')
 
-}, function(modId) {var map = {"./server":1719199291385}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291385, function(require, module, exports) {
+}, function(modId) {var map = {"./server":1762934369842}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369842, function(require, module, exports) {
 const canPromise = require('./can-promise')
 const QRCode = require('./core/qrcode')
 const PngRenderer = require('./renderer/png')
@@ -159,8 +159,8 @@ exports.toFileStream = function toFileStream (stream, text, opts) {
   render(renderToFileStream, text, params)
 }
 
-}, function(modId) { var map = {"./can-promise":1719199291386,"./core/qrcode":1719199291387,"./renderer/png":1719199291409,"./renderer/utf8":1719199291411,"./renderer/terminal":1719199291412,"./renderer/svg":1719199291415,"./browser":1719199291417}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291386, function(require, module, exports) {
+}, function(modId) { var map = {"./can-promise":1762934369843,"./core/qrcode":1762934369844,"./renderer/png":1762934369866,"./renderer/utf8":1762934369868,"./renderer/terminal":1762934369869,"./renderer/svg":1762934369872,"./browser":1762934369874}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369843, function(require, module, exports) {
 // can-promise has a crash in some versions of react native that dont have
 // standard global objects
 // https://github.com/soldair/node-qrcode/issues/157
@@ -170,7 +170,7 @@ module.exports = function () {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291387, function(require, module, exports) {
+__DEFINE__(1762934369844, function(require, module, exports) {
 const Utils = require('./utils')
 const ECLevel = require('./error-correction-level')
 const BitBuffer = require('./bit-buffer')
@@ -667,8 +667,8 @@ exports.create = function create (data, options) {
   return createSymbol(data, version, errorCorrectionLevel, mask)
 }
 
-}, function(modId) { var map = {"./utils":1719199291388,"./error-correction-level":1719199291389,"./bit-buffer":1719199291390,"./bit-matrix":1719199291391,"./alignment-pattern":1719199291392,"./finder-pattern":1719199291393,"./mask-pattern":1719199291394,"./error-correction-code":1719199291395,"./reed-solomon-encoder":1719199291396,"./version":1719199291399,"./format-info":1719199291403,"./mode":1719199291400,"./segments":1719199291404}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291388, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369845,"./error-correction-level":1762934369846,"./bit-buffer":1762934369847,"./bit-matrix":1762934369848,"./alignment-pattern":1762934369849,"./finder-pattern":1762934369850,"./mask-pattern":1762934369851,"./error-correction-code":1762934369852,"./reed-solomon-encoder":1762934369853,"./version":1762934369856,"./format-info":1762934369860,"./mode":1762934369857,"./segments":1762934369861}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369845, function(require, module, exports) {
 let toSJISFunction
 const CODEWORDS_COUNT = [
   0, // Not used
@@ -734,7 +734,7 @@ exports.toSJIS = function toSJIS (kanji) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291389, function(require, module, exports) {
+__DEFINE__(1762934369846, function(require, module, exports) {
 exports.L = { bit: 1 }
 exports.M = { bit: 0 }
 exports.Q = { bit: 3 }
@@ -787,7 +787,7 @@ exports.from = function from (value, defaultValue) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291390, function(require, module, exports) {
+__DEFINE__(1762934369847, function(require, module, exports) {
 function BitBuffer () {
   this.buffer = []
   this.length = 0
@@ -827,7 +827,7 @@ BitBuffer.prototype = {
 module.exports = BitBuffer
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291391, function(require, module, exports) {
+__DEFINE__(1762934369848, function(require, module, exports) {
 /**
  * Helper class to handle QR Code symbol modules
  *
@@ -895,7 +895,7 @@ BitMatrix.prototype.isReserved = function (row, col) {
 module.exports = BitMatrix
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291392, function(require, module, exports) {
+__DEFINE__(1762934369849, function(require, module, exports) {
 /**
  * Alignment pattern are fixed reference pattern in defined positions
  * in a matrix symbology, which enables the decode software to re-synchronise
@@ -980,8 +980,8 @@ exports.getPositions = function getPositions (version) {
   return coords
 }
 
-}, function(modId) { var map = {"./utils":1719199291388}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291393, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369845}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369850, function(require, module, exports) {
 const getSymbolSize = require('./utils').getSymbolSize
 const FINDER_PATTERN_SIZE = 7
 
@@ -1005,8 +1005,8 @@ exports.getPositions = function getPositions (version) {
   ]
 }
 
-}, function(modId) { var map = {"./utils":1719199291388}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291394, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369845}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369851, function(require, module, exports) {
 /**
  * Data mask pattern reference
  * @type {Object}
@@ -1243,7 +1243,7 @@ exports.getBestMask = function getBestMask (data, setupFormatFunc) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291395, function(require, module, exports) {
+__DEFINE__(1762934369852, function(require, module, exports) {
 const ECLevel = require('./error-correction-level')
 
 const EC_BLOCKS_TABLE = [
@@ -1380,8 +1380,8 @@ exports.getTotalCodewordsCount = function getTotalCodewordsCount (version, error
   }
 }
 
-}, function(modId) { var map = {"./error-correction-level":1719199291389}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291396, function(require, module, exports) {
+}, function(modId) { var map = {"./error-correction-level":1762934369846}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369853, function(require, module, exports) {
 const Polynomial = require('./polynomial')
 
 function ReedSolomonEncoder (degree) {
@@ -1439,8 +1439,8 @@ ReedSolomonEncoder.prototype.encode = function encode (data) {
 
 module.exports = ReedSolomonEncoder
 
-}, function(modId) { var map = {"./polynomial":1719199291397}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291397, function(require, module, exports) {
+}, function(modId) { var map = {"./polynomial":1762934369854}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369854, function(require, module, exports) {
 const GF = require('./galois-field')
 
 /**
@@ -1504,8 +1504,8 @@ exports.generateECPolynomial = function generateECPolynomial (degree) {
   return poly
 }
 
-}, function(modId) { var map = {"./galois-field":1719199291398}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291398, function(require, module, exports) {
+}, function(modId) { var map = {"./galois-field":1762934369855}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369855, function(require, module, exports) {
 const EXP_TABLE = new Uint8Array(512)
 const LOG_TABLE = new Uint8Array(256)
 /**
@@ -1577,7 +1577,7 @@ exports.mul = function mul (x, y) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291399, function(require, module, exports) {
+__DEFINE__(1762934369856, function(require, module, exports) {
 const Utils = require('./utils')
 const ECCode = require('./error-correction-code')
 const ECLevel = require('./error-correction-level')
@@ -1742,8 +1742,8 @@ exports.getEncodedBits = function getEncodedBits (version) {
   return (version << 12) | d
 }
 
-}, function(modId) { var map = {"./utils":1719199291388,"./error-correction-code":1719199291395,"./error-correction-level":1719199291389,"./mode":1719199291400,"./version-check":1719199291401}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291400, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369845,"./error-correction-code":1762934369852,"./error-correction-level":1762934369846,"./mode":1762934369857,"./version-check":1762934369858}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369857, function(require, module, exports) {
 const VersionCheck = require('./version-check')
 const Regex = require('./regex')
 
@@ -1912,8 +1912,8 @@ exports.from = function from (value, defaultValue) {
   }
 }
 
-}, function(modId) { var map = {"./version-check":1719199291401,"./regex":1719199291402}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291401, function(require, module, exports) {
+}, function(modId) { var map = {"./version-check":1762934369858,"./regex":1762934369859}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369858, function(require, module, exports) {
 /**
  * Check if QR Code version is valid
  *
@@ -1925,7 +1925,7 @@ exports.isValid = function isValid (version) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291402, function(require, module, exports) {
+__DEFINE__(1762934369859, function(require, module, exports) {
 const numeric = '[0-9]+'
 const alphanumeric = '[A-Z $%*+\\-./:]+'
 let kanji = '(?:[u3000-u303F]|[u3040-u309F]|[u30A0-u30FF]|' +
@@ -1959,7 +1959,7 @@ exports.testAlphanumeric = function testAlphanumeric (str) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291403, function(require, module, exports) {
+__DEFINE__(1762934369860, function(require, module, exports) {
 const Utils = require('./utils')
 
 const G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0)
@@ -1990,8 +1990,8 @@ exports.getEncodedBits = function getEncodedBits (errorCorrectionLevel, mask) {
   return ((data << 10) | d) ^ G15_MASK
 }
 
-}, function(modId) { var map = {"./utils":1719199291388}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291404, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369845}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369861, function(require, module, exports) {
 const Mode = require('./mode')
 const NumericData = require('./numeric-data')
 const AlphanumericData = require('./alphanumeric-data')
@@ -2323,8 +2323,8 @@ exports.rawSplit = function rawSplit (data) {
   )
 }
 
-}, function(modId) { var map = {"./mode":1719199291400,"./numeric-data":1719199291405,"./alphanumeric-data":1719199291406,"./byte-data":1719199291407,"./kanji-data":1719199291408,"./regex":1719199291402,"./utils":1719199291388}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291405, function(require, module, exports) {
+}, function(modId) { var map = {"./mode":1762934369857,"./numeric-data":1762934369862,"./alphanumeric-data":1762934369863,"./byte-data":1762934369864,"./kanji-data":1762934369865,"./regex":1762934369859,"./utils":1762934369845}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369862, function(require, module, exports) {
 const Mode = require('./mode')
 
 function NumericData (data) {
@@ -2369,8 +2369,8 @@ NumericData.prototype.write = function write (bitBuffer) {
 
 module.exports = NumericData
 
-}, function(modId) { var map = {"./mode":1719199291400}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291406, function(require, module, exports) {
+}, function(modId) { var map = {"./mode":1762934369857}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369863, function(require, module, exports) {
 const Mode = require('./mode')
 
 /**
@@ -2431,8 +2431,8 @@ AlphanumericData.prototype.write = function write (bitBuffer) {
 
 module.exports = AlphanumericData
 
-}, function(modId) { var map = {"./mode":1719199291400}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291407, function(require, module, exports) {
+}, function(modId) { var map = {"./mode":1762934369857}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369864, function(require, module, exports) {
 const encodeUtf8 = require('encode-utf8')
 const Mode = require('./mode')
 
@@ -2464,8 +2464,8 @@ ByteData.prototype.write = function (bitBuffer) {
 
 module.exports = ByteData
 
-}, function(modId) { var map = {"./mode":1719199291400}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291408, function(require, module, exports) {
+}, function(modId) { var map = {"./mode":1762934369857}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369865, function(require, module, exports) {
 const Mode = require('./mode')
 const Utils = require('./utils')
 
@@ -2521,8 +2521,8 @@ KanjiData.prototype.write = function (bitBuffer) {
 
 module.exports = KanjiData
 
-}, function(modId) { var map = {"./mode":1719199291400,"./utils":1719199291388}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291409, function(require, module, exports) {
+}, function(modId) { var map = {"./mode":1762934369857,"./utils":1762934369845}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369866, function(require, module, exports) {
 const fs = require('fs')
 const PNG = require('pngjs').PNG
 const Utils = require('./utils')
@@ -2602,8 +2602,8 @@ exports.renderToFileStream = function renderToFileStream (stream, qrData, option
   png.pack().pipe(stream)
 }
 
-}, function(modId) { var map = {"./utils":1719199291410}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291410, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369867}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369867, function(require, module, exports) {
 function hex2rgba (hex) {
   if (typeof hex === 'number') {
     hex = hex.toString()
@@ -2705,7 +2705,7 @@ exports.qrToImageData = function qrToImageData (imgData, qr, opts) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291411, function(require, module, exports) {
+__DEFINE__(1762934369868, function(require, module, exports) {
 const Utils = require('./utils')
 
 const BLOCK_CHAR = {
@@ -2778,8 +2778,8 @@ exports.renderToFile = function renderToFile (path, qrData, options, cb) {
   fs.writeFile(path, utf8, cb)
 }
 
-}, function(modId) { var map = {"./utils":1719199291410}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291412, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369867}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369869, function(require, module, exports) {
 const big = require('./terminal/terminal')
 const small = require('./terminal/terminal-small')
 
@@ -2790,8 +2790,8 @@ exports.render = function (qrData, options, cb) {
   return big.render(qrData, options, cb)
 }
 
-}, function(modId) { var map = {"./terminal/terminal":1719199291413,"./terminal/terminal-small":1719199291414}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291413, function(require, module, exports) {
+}, function(modId) { var map = {"./terminal/terminal":1762934369870,"./terminal/terminal-small":1762934369871}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369870, function(require, module, exports) {
 // let Utils = require('./utils')
 
 exports.render = function (qrData, options, cb) {
@@ -2843,7 +2843,7 @@ exports.renderToFile = function renderToFile (path, qrData, options, cb) {
 */
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291414, function(require, module, exports) {
+__DEFINE__(1762934369871, function(require, module, exports) {
 const backgroundWhite = '\x1b[47m'
 const backgroundBlack = '\x1b[40m'
 const foregroundWhite = '\x1b[37m'
@@ -2931,7 +2931,7 @@ exports.render = function (qrData, options, cb) {
 }
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291415, function(require, module, exports) {
+__DEFINE__(1762934369872, function(require, module, exports) {
 const svgTagRenderer = require('./svg-tag')
 
 exports.render = svgTagRenderer.render
@@ -2952,8 +2952,8 @@ exports.renderToFile = function renderToFile (path, qrData, options, cb) {
   fs.writeFile(path, xmlStr, cb)
 }
 
-}, function(modId) { var map = {"./svg-tag":1719199291416}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291416, function(require, module, exports) {
+}, function(modId) { var map = {"./svg-tag":1762934369873}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369873, function(require, module, exports) {
 const Utils = require('./utils')
 
 function getColorAttrib (color, attrib) {
@@ -3036,8 +3036,8 @@ exports.render = function render (qrData, options, cb) {
   return svgTag
 }
 
-}, function(modId) { var map = {"./utils":1719199291410}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291417, function(require, module, exports) {
+}, function(modId) { var map = {"./utils":1762934369867}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369874, function(require, module, exports) {
 
 const canPromise = require('./can-promise')
 
@@ -3115,8 +3115,8 @@ exports.toString = renderCanvas.bind(null, function (data, _, opts) {
   return SvgRenderer.render(data, opts)
 })
 
-}, function(modId) { var map = {"./can-promise":1719199291386,"./core/qrcode":1719199291387,"./renderer/canvas":1719199291418,"./renderer/svg-tag.js":1719199291416}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291418, function(require, module, exports) {
+}, function(modId) { var map = {"./can-promise":1762934369843,"./core/qrcode":1762934369844,"./renderer/canvas":1762934369875,"./renderer/svg-tag.js":1762934369873}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369875, function(require, module, exports) {
 const Utils = require('./utils')
 
 function clearCanvas (ctx, canvas, size) {
@@ -3181,8 +3181,8 @@ exports.renderToDataURL = function renderToDataURL (qrData, canvas, options) {
   return canvasEl.toDataURL(type, rendererOpts.quality)
 }
 
-}, function(modId) { var map = {"./utils":1719199291410}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1719199291384);
+}, function(modId) { var map = {"./utils":1762934369867}; return __REQUIRE__(map[modId], modId); })
+return __REQUIRE__(1762934369841);
 })()
 //miniprogram-npm-outsideDeps=["dijkstrajs","encode-utf8","fs","pngjs"]
 //# sourceMappingURL=index.js.map

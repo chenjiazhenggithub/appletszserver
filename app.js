@@ -2,10 +2,60 @@
 App({
   onLaunch: function () {
     var that = this;
+    const safeStorage = require('./utils/safeStorage')
+    // Wrap wx.setStorageSync to handle cases where the underlying app-service
+    // may fail due to an expired access_token (INVALID_LOGIN). This makes
+    // setStorageSync resilient: on such error we attempt a wx.login and retry once.
+    try {
+      if (wx && wx.setStorageSync && !wx.__safeSetStorageSyncWrapped) {
+        const _origSetStorageSync = wx.setStorageSync.bind(wx)
+        wx.setStorageSync = function(key, data) {
+          try {
+            return _origSetStorageSync(key, data)
+          } catch (e) {
+            // Normalize message
+            const msg = (e && (e.errMsg || e.message)) ? (e.errMsg || e.message) : String(e)
+            console.error('setStorageSync failed:', msg, e)
+            if (msg.indexOf('INVALID_LOGIN') !== -1 || msg.indexOf('access_token expired') !== -1) {
+              // Try to refresh login and retry once (best-effort).
+              try {
+                wx.login({
+                  success: res => {
+                    try {
+                      _origSetStorageSync(key, data)
+                      console.info('setStorageSync retry succeeded after wx.login')
+                    } catch (err2) {
+                      console.error('Retry setStorageSync still failed', err2)
+                    }
+                  },
+                  fail: errLogin => {
+                    console.error('wx.login failed while handling setStorageSync INVALID_LOGIN', errLogin)
+                  }
+                })
+              } catch (err) {
+                console.error('Error while attempting wx.login for setStorageSync recovery', err)
+              }
+              // Return undefined since original call failed; recovery happens asynchronously
+              return
+            }
+            // rethrow if not handled
+            throw e
+          }
+        }
+        wx.__safeSetStorageSyncWrapped = true
+      }
+    } catch (wrapErr) {
+      // Defensive: ensure onLaunch doesn't crash due to wrapper logic
+      console.error('Failed to install safe setStorageSync wrapper', wrapErr)
+    }
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
+    var logs = (safeStorage.safeGetStorageSync('logs')) || []
     logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    try {
+      safeStorage.safeSetStorageSync('logs', logs)
+    } catch (e) {
+      console.error('Failed to write logs to storage onLaunch', e)
+    }
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -27,6 +77,34 @@ App({
       }
     })
   },
+  onError(err) {
+    // 全局错误处理，捕获运行时未处理异常并记录到本地日志，便于排查
+    try {
+      const safeStorage = require('./utils/safeStorage')
+      const now = new Date().toISOString()
+      const entry = {
+        time: now,
+        error: (err && (err.message || err.errMsg)) ? (err.message || err.errMsg) : String(err),
+        stack: err && err.stack ? err.stack : null
+      }
+      // 读取旧日志并追加（保持小型）
+      const logs = safeStorage.safeGetStorageSync('error_logs') || []
+      logs.unshift(entry)
+      // 限制日志长度
+      if (logs.length > 50) logs.splice(50)
+      safeStorage.safeSetStorageSync('error_logs', logs)
+      console.error('Global onError captured:', entry)
+      // 当开发者工具出现关键错误时，尽量提示
+      try { wx.showToast({ title: '发生运行时错误（查看控制台）', icon: 'none', duration: 3000 }) } catch (e) {}
+    } catch (e) {
+      console.error('onError handler failed', e)
+    }
+  },
+  // onShow: function () {
+  //   if (this.page === '集团登录') {
+  //     this.neelogon()
+  //   }
+  // },
   neelogon: function () {
     var that = this
     // 登录
@@ -63,13 +141,19 @@ App({
                   resolve()
                  })
                 } else {
-                   that.page = '集团登录',
-                   that.jituanuserId = item.data.result_data.UserId
-                   that.jituanname = item.data.result_data.StoreName
-                   that.globalData.UserName = item.data.result_data.UserName
-                   that.globalData.ClassName = item.data.result_data.ClassName
-                   that.globalData.UserId = item.data.result_data.UserId
-                   resolve()
+                  if (item.data.result_data.IsDelete === true) {
+                    that.logon().then(res => {
+                      resolve()
+                     })
+                  } else {
+                    that.page = '集团登录',
+                    that.jituanuserId = item.data.result_data.UserId
+                    that.jituanname = item.data.result_data.StoreName
+                    that.globalData.UserName = item.data.result_data.UserName
+                    that.globalData.ClassName = item.data.result_data.ClassName
+                    that.globalData.UserId = item.data.result_data.UserId
+                    resolve()
+                  }
                 }
               }
               if (that.userJituannameCallback) {

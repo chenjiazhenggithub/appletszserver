@@ -8,7 +8,8 @@ function OcrIdCard(access_token){
       sourceType: ['album', 'camera'],
       success: function (res) {
         wx.showLoading({ title: '识别中' })
-        wx.uploadFile({
+        const request = require('./request')
+        request.safeUploadFile({
           url: 'https://applet.myszgroup.cn:7779/api/UserPage/UploadAllValuesImgeByData?typenum=1', //仅为示例，非真实的接口地址
           filePath: res.tempFilePaths[0],
           name: 'appletimg',
@@ -16,21 +17,14 @@ function OcrIdCard(access_token){
           //   "Content-Type": "multipart/form-data",
           //   'accept': 'application/json',
           // },
-          // formData: {
-          //   typenum
-          // },
-          success (res){
-            wx.hideLoading();
-            const data = res.data
-            resolve(data)
-            //do something
-          },fail(_res) {
-            wx.hideLoading();
-            wx.showToast({
-                title: '请求出错',
-            })
-            reject(_res)
-          }
+        }).then(res => {
+          try { wx.hideLoading() } catch (e) {}
+          const data = res.data
+          resolve(data)
+        }).catch(_res => {
+          try { wx.hideLoading() } catch (e) {}
+          wx.showToast({ title: '请求出错' })
+          reject(_res)
         })
           //核心代码
         // wx.getFileSystemManager().readFile({

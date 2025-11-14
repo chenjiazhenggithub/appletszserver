@@ -4,7 +4,7 @@ var __DEFINE__ = function(modId, func, req) { var m = { exports: {}, _tempexport
 var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = __MODS__[modId].m; m._exports = m._tempexports; var desp = Object.getOwnPropertyDescriptor(m, "exports"); if (desp && desp.configurable) Object.defineProperty(m, "exports", { set: function (val) { if(typeof val === "object" && val !== m._exports) { m._exports.__proto__ = val.__proto__; Object.keys(val).forEach(function (k) { m._exports[k] = val[k]; }); } m._tempexports = val }, get: function () { return m._tempexports; } }); __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); } return __MODS__[modId].m.exports; };
 var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
 var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1719199291362, function(require, module, exports) {
+__DEFINE__(1762934369819, function(require, module, exports) {
 
 
 let util = require("util");
@@ -200,8 +200,8 @@ PNG.prototype.adjustGamma = function () {
   PNG.adjustGamma(this);
 };
 
-}, function(modId) {var map = {"./parser-async":1719199291363,"./packer-async":1719199291374,"./png-sync":1719199291378}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291363, function(require, module, exports) {
+}, function(modId) {var map = {"./parser-async":1762934369820,"./packer-async":1762934369831,"./png-sync":1762934369835}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369820, function(require, module, exports) {
 
 
 let util = require("util");
@@ -368,8 +368,8 @@ ParserAsync.prototype._complete = function (filteredData) {
   this.emit("parsed", normalisedBitmapData);
 };
 
-}, function(modId) { var map = {"./chunkstream":1719199291364,"./filter-parse-async":1719199291365,"./parser":1719199291369,"./bitmapper":1719199291372,"./format-normaliser":1719199291373}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291364, function(require, module, exports) {
+}, function(modId) { var map = {"./chunkstream":1762934369821,"./filter-parse-async":1762934369822,"./parser":1762934369826,"./bitmapper":1762934369829,"./format-normaliser":1762934369830}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369821, function(require, module, exports) {
 
 
 let util = require("util");
@@ -561,7 +561,7 @@ ChunkStream.prototype._process = function () {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291365, function(require, module, exports) {
+__DEFINE__(1762934369822, function(require, module, exports) {
 
 
 let util = require("util");
@@ -587,8 +587,8 @@ let FilterAsync = (module.exports = function (bitmapInfo) {
 });
 util.inherits(FilterAsync, ChunkStream);
 
-}, function(modId) { var map = {"./chunkstream":1719199291364,"./filter-parse":1719199291366}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291366, function(require, module, exports) {
+}, function(modId) { var map = {"./chunkstream":1762934369821,"./filter-parse":1762934369823}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369823, function(require, module, exports) {
 
 
 let interlaceUtils = require("./interlace");
@@ -767,8 +767,8 @@ Filter.prototype._reverseFilterLine = function (rawData) {
   }
 };
 
-}, function(modId) { var map = {"./interlace":1719199291367,"./paeth-predictor":1719199291368}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291367, function(require, module, exports) {
+}, function(modId) { var map = {"./interlace":1762934369824,"./paeth-predictor":1762934369825}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369824, function(require, module, exports) {
 
 
 // Adam 7
@@ -866,7 +866,7 @@ exports.getInterlaceIterator = function (width) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291368, function(require, module, exports) {
+__DEFINE__(1762934369825, function(require, module, exports) {
 
 
 module.exports = function paethPredictor(left, above, upLeft) {
@@ -885,7 +885,7 @@ module.exports = function paethPredictor(left, above, upLeft) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291369, function(require, module, exports) {
+__DEFINE__(1762934369826, function(require, module, exports) {
 
 
 let constants = require("./constants");
@@ -1177,8 +1177,8 @@ Parser.prototype._parseIEND = function (data) {
   }
 };
 
-}, function(modId) { var map = {"./constants":1719199291370,"./crc":1719199291371}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291370, function(require, module, exports) {
+}, function(modId) { var map = {"./constants":1762934369827,"./crc":1762934369828}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369827, function(require, module, exports) {
 
 
 module.exports = {
@@ -1213,7 +1213,7 @@ module.exports = {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291371, function(require, module, exports) {
+__DEFINE__(1762934369828, function(require, module, exports) {
 
 
 let crcTable = [];
@@ -1256,7 +1256,7 @@ CrcCalculator.crc32 = function (buf) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291372, function(require, module, exports) {
+__DEFINE__(1762934369829, function(require, module, exports) {
 
 
 let interlaceUtils = require("./interlace");
@@ -1525,8 +1525,8 @@ exports.dataToBitMap = function (data, bitmapInfo) {
   return pxData;
 };
 
-}, function(modId) { var map = {"./interlace":1719199291367}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291373, function(require, module, exports) {
+}, function(modId) { var map = {"./interlace":1762934369824}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369830, function(require, module, exports) {
 
 
 function dePalette(indata, outdata, width, height, palette) {
@@ -1622,7 +1622,7 @@ module.exports = function (indata, imageData) {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291374, function(require, module, exports) {
+__DEFINE__(1762934369831, function(require, module, exports) {
 
 
 let util = require("util");
@@ -1674,8 +1674,8 @@ PackerAsync.prototype.pack = function (data, width, height, gamma) {
   this._deflate.end(filteredData);
 };
 
-}, function(modId) { var map = {"./constants":1719199291370,"./packer":1719199291375}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291375, function(require, module, exports) {
+}, function(modId) { var map = {"./constants":1762934369827,"./packer":1762934369832}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369832, function(require, module, exports) {
 
 
 let constants = require("./constants");
@@ -1806,8 +1806,8 @@ Packer.prototype.packIEND = function () {
   return this._packChunk(constants.TYPE_IEND, null);
 };
 
-}, function(modId) { var map = {"./constants":1719199291370,"./crc":1719199291371,"./bitpacker":1719199291376,"./filter-pack":1719199291377}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291376, function(require, module, exports) {
+}, function(modId) { var map = {"./constants":1762934369827,"./crc":1762934369828,"./bitpacker":1762934369833,"./filter-pack":1762934369834}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369833, function(require, module, exports) {
 
 
 let constants = require("./constants");
@@ -1967,8 +1967,8 @@ module.exports = function (dataIn, width, height, options) {
   return outData;
 };
 
-}, function(modId) { var map = {"./constants":1719199291370}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291377, function(require, module, exports) {
+}, function(modId) { var map = {"./constants":1762934369827}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369834, function(require, module, exports) {
 
 
 let paethPredictor = require("./paeth-predictor");
@@ -2141,8 +2141,8 @@ module.exports = function (pxData, width, height, options, bpp) {
   return rawData;
 };
 
-}, function(modId) { var map = {"./paeth-predictor":1719199291368}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291378, function(require, module, exports) {
+}, function(modId) { var map = {"./paeth-predictor":1762934369825}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369835, function(require, module, exports) {
 
 
 let parse = require("./parser-sync");
@@ -2156,8 +2156,8 @@ exports.write = function (png, options) {
   return pack(png, options);
 };
 
-}, function(modId) { var map = {"./parser-sync":1719199291379,"./packer-sync":1719199291383}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291379, function(require, module, exports) {
+}, function(modId) { var map = {"./parser-sync":1762934369836,"./packer-sync":1762934369840}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369836, function(require, module, exports) {
 
 
 let hasSyncZlib = true;
@@ -2267,8 +2267,8 @@ module.exports = function (buffer, options) {
   return metaData;
 };
 
-}, function(modId) { var map = {"./sync-inflate":1719199291380,"./sync-reader":1719199291381,"./filter-parse-sync":1719199291382,"./parser":1719199291369,"./bitmapper":1719199291372,"./format-normaliser":1719199291373}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291380, function(require, module, exports) {
+}, function(modId) { var map = {"./sync-inflate":1762934369837,"./sync-reader":1762934369838,"./filter-parse-sync":1762934369839,"./parser":1762934369826,"./bitmapper":1762934369829,"./format-normaliser":1762934369830}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369837, function(require, module, exports) {
 
 
 let assert = require("assert").ok;
@@ -2439,7 +2439,7 @@ exports.createInflate = createInflate;
 exports.inflateSync = inflateSync;
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291381, function(require, module, exports) {
+__DEFINE__(1762934369838, function(require, module, exports) {
 
 
 let SyncReader = (module.exports = function (buffer) {
@@ -2487,7 +2487,7 @@ SyncReader.prototype.process = function () {
 };
 
 }, function(modId) { var map = {}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291382, function(require, module, exports) {
+__DEFINE__(1762934369839, function(require, module, exports) {
 
 
 let SyncReader = require("./sync-reader");
@@ -2510,8 +2510,8 @@ exports.process = function (inBuffer, bitmapInfo) {
   return Buffer.concat(outBuffers);
 };
 
-}, function(modId) { var map = {"./sync-reader":1719199291381,"./filter-parse":1719199291366}; return __REQUIRE__(map[modId], modId); })
-__DEFINE__(1719199291383, function(require, module, exports) {
+}, function(modId) { var map = {"./sync-reader":1762934369838,"./filter-parse":1762934369823}; return __REQUIRE__(map[modId], modId); })
+__DEFINE__(1762934369840, function(require, module, exports) {
 
 
 let hasSyncZlib = true;
@@ -2569,8 +2569,8 @@ module.exports = function (metaData, opt) {
   return Buffer.concat(chunks);
 };
 
-}, function(modId) { var map = {"./constants":1719199291370,"./packer":1719199291375}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1719199291362);
+}, function(modId) { var map = {"./constants":1762934369827,"./packer":1762934369832}; return __REQUIRE__(map[modId], modId); })
+return __REQUIRE__(1762934369819);
 })()
 //miniprogram-npm-outsideDeps=["util","stream","zlib","assert","buffer"]
 //# sourceMappingURL=index.js.map

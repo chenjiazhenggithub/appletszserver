@@ -1,4 +1,4 @@
-<view class="page-body">
+<view class="page-body" style="height: 100vh; padding-bottom: {{pagePaddingBottom}}px;">
   <form bindsubmit="save">
   <view class="page-section" style="padding-top:25rpx;">
     <view class="weui-cells weui-cells_after-title">
@@ -43,15 +43,34 @@
     </view>
   </view>
   <view class="page-section">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="musticn">*</view>
-      <view class="weui-cell weui-cell_input">
-        <picker bindchange="bindPickerChange1" value="{{index}}" range="{{SeriesList}}" range-key="SeriesName" class="picker">
-          <input class="weui-input" placeholder="车系" type="text" value="{{form.Series}}" name="Series" disabled="true"/>
-        </picker>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="musticn">*</view>
+        <view class="weui-cell weui-cell_input pc-select-wrapper">
+          <input class="weui-input pc-select-input"
+                id="seriesInput"
+                 placeholder="车系（输入或选择）"
+                 type="text"
+                 name="Series"
+                 value="{{form.Series}}"
+                 bindfocus="onSeriesFocus"
+                 bindinput="onSeriesInput"
+                 bindblur="onSeriesBlur" />
+          <view class="pc-select-arrow" bindtap="toggleSeriesDropdown"></view>
+          <!-- 下拉浮层 -->
+          <view wx:if="{{showSeriesDropdown && seriesDropdown.length}}" class="pc-select-dropdown pc-select-dropdown--full">
+            <block wx:for="{{seriesDropdown}}" wx:key="SeriesId">
+              <view class="pc-select-item"
+                    data-index="{{index}}"
+                    bindtap="selectSeriesOption"
+                    catchtap="selectSeriesOption">
+                {{item.SeriesName}}
+              </view>
+            </block>
+            <view wx:if="{{!seriesDropdown.length}}" class="pc-select-empty">无匹配车系</view>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
       <view class="musticn">*</view>
@@ -63,14 +82,33 @@
     </view>
   </view>
   <view class="page-section">
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <picker bindchange="bindPickerChange2" bindcancel="bindPickerClone1" value="{{index}}" range="{{ModelList}}" range-key="ModelName" class="picker">
-          <input class="weui-input" placeholder="车型" type="text" value="{{form.Model}}" name="Model" disabled="true"/>
-        </picker>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input pc-select-wrapper">
+          <input class="weui-input pc-select-input"
+          id="modelInput"
+                 placeholder="车型（输入或选择）"
+                 type="text"
+                 name="Model"
+                 value="{{form.Model}}"
+                 bindfocus="onModelFocus"
+                 bindinput="onModelInput"
+                 bindblur="onModelBlur" />
+          <view class="pc-select-arrow" bindtap="toggleModelDropdown"></view>
+          <!-- 下拉浮层 -->
+          <view wx:if="{{showModelDropdown && modelDropdown.length}}" class="pc-select-dropdown pc-select-dropdown--model">
+            <block wx:for="{{modelDropdown}}" wx:key="ModelId">
+              <view class="pc-select-item"
+                    data-index="{{index}}"
+                    bindtap="selectModelOption"
+                    catchtap="selectModelOption">
+                {{item.ModelName}}
+              </view>
+            </block>
+            <view wx:if="{{!modelDropdown.length}}" class="pc-select-empty">无匹配车型</view>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">

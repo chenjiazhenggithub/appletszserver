@@ -226,6 +226,7 @@ Page({
     }
   },
   onShow: function () {
+    console.log(app.page)
     if (app.page === '集团登录') {
       app.neelogon()
     } else {

@@ -3,5 +3,6 @@
   "projectname": "newszgroupapple",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "3.11.1"
 }
