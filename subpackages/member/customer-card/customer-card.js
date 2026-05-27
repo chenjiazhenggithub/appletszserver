@@ -1,7 +1,7 @@
 // pages/customer-card/customer-card.js
-import pinyin from '../../miniprogram_npm/tiny-pinyin/index';
-import WxValidate from '../../utils/WxValidate.js'
-const cwx = require('../../utils/profunc.js');
+const pinyin = require('../vendor/tiny-pinyin/index.js')
+import WxValidate from '../utils/WxValidate.js'
+const cwx = require('../../../utils/profunc.js');
 const app = getApp()
 Page({
 
@@ -560,7 +560,7 @@ Page({
             duration: 2000
           })
           wx.redirectTo({
-            url: '../index/index',
+            url: '/pages/index/index',
             success: function (data) {
               // 通过eventChannel向被打开页面传送数据
               // data.eventChannel.emit('acceptDataFromOpenerPage', { data1: '办卡' })

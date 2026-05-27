@@ -1,6 +1,6 @@
 <view style="background-color: #F5F5F5;min-height: 100vh;">
   <view style="overflow: hidden;">
-    <image bind:tap="openhistory" class="card-top-img" src="../index/images/card-top-img.png" mode="cover"></image>
+  <image bind:tap="openhistory" class="card-top-img" src="/pages/index/images/card-top-img.png" mode="cover"></image>
   </view>
   <view>
     <view wx:for="{{cardlist}}" wx:key="index" wx:for-item="menuItem" class="cardbox">
@@ -12,7 +12,7 @@
           <view>{{menuItem.FavorableName}}</view>
         </view>
         <view bind:tap="tourl" data-url="/pages/qrcode/qrcode" data-number="{{index}}" class="content_rightbox" wx:if="{{!menuItem.IsAllowsfree}}">
-          <image class="code" src="../index/images/qrcode.png" mode="cover"/>
+          <image class="code" src="/pages/index/images/qrcode.png" mode="cover"/>
         </view>
       </view>
       <view style="display: flex;">
@@ -27,7 +27,7 @@
           </view>
         </view>
         <view class="buttonbox" wx:if="{{menuItem.IsAllowsfree}}">
-          <view bind:tap="tourl" data-url="/pages/transfer/transfer" data-number="{{index}}" class="content_button">转赠</view>
+          <view bind:tap="tourl" data-url="/subpackages/transfer/transfer/transfer" data-number="{{index}}" class="content_button">转赠</view>
         </view>
       </view>
       <view wx:if="{{menuItem.fold}}" class="border"></view>

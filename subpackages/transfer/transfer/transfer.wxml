@@ -68,5 +68,4 @@
       </view>
     </view>
   </view>
-  <van-dialog id="van-dialog" />
 </view>

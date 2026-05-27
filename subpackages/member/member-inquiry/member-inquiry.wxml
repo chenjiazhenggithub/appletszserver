@@ -40,7 +40,7 @@
           <view class="text-box">
             <span class="left-text">手机号</span>
             <text class="right-text" user-select="true" style="width:48%;">{{BaseData.Mobile}}</text>
-            <image wx:if="{{BaseData.Mobile}}" bindtap='clickPhone' src="../index/images/customr-phone.png"  style="width: 25px;height: 25px;"/>
+            <image wx:if="{{BaseData.Mobile}}" bindtap='clickPhone' src="/pages/index/images/customr-phone.png"  style="width: 25px;height: 25px;"/>
           </view>
           <view class="text-box">
             <span class="left-text">购车日期</span>
@@ -62,8 +62,9 @@
         <view style="height: 540px;overflow-y: scroll;" wx:else="!{{chuzhishow}}">
           <!-- <view style="color: #c0a474;margin: 20px 0 0 24px;">储值金额: {{chuzhitotal}}<span style="font-size: 10px;margin-left: 2px;">元</span></view> -->
           <view class="imgbox" wx:for="{{diyongquanData}}" wx:key="index">
-            <image src="../index/images/diyongjuan.png" wx:if="{{item.CanUseFlag === '有效'}}" class="diyongimg"  style="width: 100%;height: 96px;"/>
-            <image src="../index/images/outtime.png" wx:if="{{item.CanUseFlag === '失效'}}" class="diyongimg"  style="width: 100%;height: 96px;"/>
+            <image src="/pages/index/images/diyongjuan.png" wx:if="{{item.CanUseFlag === '有效'}}" class="diyongimg"  style="width: 100%;height: 96px;"/>
+            <image src="/pages/index/images/outtime.png" wx:if="{{item.CanUseFlag === '失效'}}" class="diyongimg"  style="width: 100%;height: 96px;"/>
+            <image src="/pages/index/images/weishengxiao.png" wx:if="{{item.CanUseFlag === '未生效'}}" class="diyongimg"  style="width: 100%;height: 96px;"/>
             <view class="imgbox-left">
               <view class="newclass3" style="{{item.CanUseFlag === '有效' ? 'color:#c0a575;' : 'color: rgba(0, 0, 0, 0.25);'}}">{{item.balance}}张</view>
               <view class="newclass1" style="{{item.CanUseFlag === '有效' ? 'color:#c0a575;' : 'color: rgba(0, 0, 0, 0.25);'}}">{{item.type}}</view>
@@ -71,12 +72,13 @@
             <view class="imgbox-right">
               <view style="{{item.CanUseFlag === '有效' ? 'color:#c0a575;' : 'color: rgba(0, 0, 0, 0.25);width: 84%;'}}" class="newclass">{{item.favorableName}}</view>
               <view style="width: 86%;height: 1px;border-bottom: 1px dashed #ebebeb;margin: 0px auto 0 auto;"></view>
-              <view style="color: #cccccc;font-size: 12px;float: right;margin: 8px 15px 0 0;">{{item.Startdate}} - {{item.enddate}}</view>
+              <view style="color: #cccccc;font-size: 12px;float: right;margin: 8px 15px 0 0;">{{item.Startdate || '无期限'}} - {{item.enddate || '无期限'}}</view>
             </view>
           </view>
           <view class="imgbox" wx:for="{{chuzhiData}}" wx:key="index">
-            <image src="../index/images/diyongjuan.png" wx:if="{{item.CanUseFlag === '有效'}}" style="width: 100%;height: 96px;"/>
-            <image src="../index/images/outtime.png" wx:if="{{item.CanUseFlag === '失效'}}" style="width: 100%;height: 96px;"/>
+            <image src="/pages/index/images/diyongjuan.png" wx:if="{{item.CanUseFlag === '有效'}}" style="width: 100%;height: 96px;"/>
+            <image src="/pages/index/images/outtime.png" wx:if="{{item.CanUseFlag === '失效'}}" style="width: 100%;height: 96px;"/>
+            <image src="/pages/index/images/weishengxiao.png" wx:if="{{item.CanUseFlag === '未生效'}}" style="width: 100%;height: 96px;"/>
             <view class="imgbox-left" style="word-wrap:break-word;word-break:normal;">
               <view class="newclass2" style="{{item.CanUseFlag === '有效' ? 'color:#c0a575;' : 'color: rgba(0, 0, 0, 0.25);'}}"><span>￥</span><span style="font-size: 19px;">{{item.balance}}</span></view>
               <view class="newclass1" style="{{item.CanUseFlag === '有效' ? 'color:#c0a575;' : 'color: rgba(0, 0, 0, 0.25);'}}">储值卡</view>
@@ -84,7 +86,7 @@
             <view class="imgbox-right">
               <view style="{{item.CanUseFlag === '有效' ? 'color:#c0a575;' : 'color: rgba(0, 0, 0, 0.25);width: 84%;'}}" class="newclass">{{item.favorableName}}</view>
               <view style="width: 86%;height: 1px;border-bottom: 1px dashed #ebebeb;margin: 0px auto 0 auto;"></view>
-              <view style="color: #cccccc;font-size: 12px;float: right;margin: 8px 15px 0 0;">{{item.Startdate}} - {{item.enddate}}</view>
+              <view style="color: #cccccc;font-size: 12px;float: right;margin: 8px 15px 0 0;">{{item.Startdate || '无期限'}} - {{item.enddate || '无期限'}}</view>
             </view>
           </view>
         </view>

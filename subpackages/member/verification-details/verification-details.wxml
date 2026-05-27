@@ -29,7 +29,7 @@
           <view style="display: flex; justify-content: space-between;margin-top:20px;align-items: end;">
             <view style="color:#616161;">{{item.CouponName}}</view>
             <view bind:tap="tourl" data-url="/pages/qrcode/qrcode" data-number="{{index}}" class="content_rightbox" >
-              <image class="code" src="../index/images/qrcode.png" mode="cover"/>
+              <image class="code" src="/pages/index/images/qrcode.png" mode="cover"/>
             </view>
           </view>
         </li>

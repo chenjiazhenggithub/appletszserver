@@ -12,7 +12,7 @@ Page({
       {
         title: '客户办卡',
         iamge: './images/kehubanka.png',
-        src: '/pages/customer-card/customer-card',
+  src: '/subpackages/member/customer-card/customer-card',
         class: 'twomenu-image',
         role: 514,
         show: false,
@@ -20,7 +20,7 @@ Page({
       },{
         title: '员工卡劵中心',
         iamge: './images/card-center.png',
-        src: '/pages/card-center/card-center',
+  src: '/subpackages/member/card-center/card-center',
         class: 'twomenu-image4',
         role: 9999,
         show: false,
@@ -28,7 +28,7 @@ Page({
       },{
         title: '待核销明细',
         iamge: './images/card-center.png',
-        src: '/pages/verification-details/verification-details',
+  src: '/subpackages/member/verification-details/verification-details',
         class: 'twomenu-image4',
         role: 516,
         show: false,
@@ -44,7 +44,7 @@ Page({
       },{
         title: '会员查询',
         iamge: './images/customer.png',
-        src: '/pages/member-inquiry/member-inquiry',
+  src: '/subpackages/member/member-inquiry/member-inquiry',
         class: 'twomenu-image1',
         role: 515,
         show: false,
@@ -53,7 +53,7 @@ Page({
       {
         title: '核销历史',
         iamge: './images/history.png',
-        src: '/pages/history/history',
+  src: '/subpackages/member/history/history',
         class: 'twomenu-image1',
         role: 513,
         show: false,
@@ -62,7 +62,7 @@ Page({
       {
         title: '修改密码',
         iamge: './images/passlogo.png',
-        src: '/pages/password/password',
+  src: '/subpackages/member/password/password',
         class: 'twomenu-image5',
         role: 9999,
         show: false,

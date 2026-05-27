@@ -1,5 +1,4 @@
 const app = getApp()
-import Dialog from '@vant/weapp/dist/dialog/dialog';
 // 防抖函数
 function debounce(fn, delay) {
   let timeout = null;
@@ -153,11 +152,13 @@ Page({
     if (isnext === true) {
       return false
     }
-    Dialog.confirm({
-        title: '提示',
-        message: '您确定要删除这条数据吗?',
-      })
-      .then(() => {
+    wx.showModal({
+      title: '提示',
+      content: '您确定要删除这条数据吗?',
+      success(res) {
+        if (!res.confirm) {
+          return
+        }
         wx.request({
           url: 'https://applet.myszgroup.cn:7779/api/UserPage/DeleteCouponPresent',
           method: 'GET',
@@ -184,17 +185,15 @@ Page({
               })
             }
           },
-          fail: function (erroe) {
+          fail: function () {
             wx.showModal({
-              content: res.data.result_msg,
+              content: '网络请求失败',
               showCancel: false
             })
           }
         })
-      })
-      .catch(() => {
-
-      })
+      }
+    })
   },
   openmodal: function () {
     this.setData({

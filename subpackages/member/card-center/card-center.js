@@ -27,7 +27,7 @@ Page({
   },
   openhistory: function() {
     wx.navigateTo({
-      url: '/pages/transferHistory/transferHistory',
+      url: '/subpackages/transfer/transferHistory/transferHistory',
       success: function(data) {
         // 通过eventChannel向被打开页面传送数据
         data.eventChannel.emit('acceptDataFromOpenerPage', {})
