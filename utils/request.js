@@ -59,8 +59,75 @@ function requestWithAuth(opts) {
   })
 }
 
+function extractApiErrorMessage(err, fallbackMsg) {
+  const fallback = fallbackMsg || '请求失败';
+  if (!err) return fallback;
+
+  if (typeof err === 'string') return err;
+  if (err.result_msg) return err.result_msg;
+  if (err.msg) return err.msg;
+  if (err.message) return err.message;
+
+  const data = err.data || err;
+  if (data && typeof data === 'object') {
+    if (data.result_msg) return data.result_msg;
+    if (data.msg) return data.msg;
+    if (data.errMsg) return data.errMsg;
+  }
+
+  if (err.errMsg) return err.errMsg;
+  return fallback;
+}
+
+function createApiError(errOrMsg, fallbackMsg) {
+  const msg = extractApiErrorMessage(errOrMsg, fallbackMsg);
+  const e = new Error(msg);
+  e.result_msg = msg;
+  if (errOrMsg && typeof errOrMsg === 'object') {
+    e.raw = errOrMsg;
+    if (errOrMsg.data) e.data = errOrMsg.data;
+  }
+  return e;
+}
+
+// 统一业务返回格式处理：
+// - 标准成功（result_code=0 或 is_success=true）=> resolve(data)
+// - 标准失败 => reject(Error)，错误信息为 result_msg/msg
+// - 非标准格式 => 直接 resolve(data)
+function requestApi(opts) {
+  return requestWithAuth(opts)
+    .then(res => {
+      const body = res && typeof res.data !== 'undefined' ? res.data : {};
+      const hasStandardCode =
+        body &&
+        Object.prototype.hasOwnProperty.call(body, 'result_code');
+      const hasStandardSuccess =
+        body &&
+        Object.prototype.hasOwnProperty.call(body, 'is_success');
+
+      if (!hasStandardCode && !hasStandardSuccess) {
+        return body;
+      }
+
+      const code = body.result_code;
+      const isSuccess =
+        code === '0' || code === 0 || body.is_success === true;
+
+      if (!isSuccess) {
+        return Promise.reject(createApiError(body, '接口请求失败'));
+      }
+
+      return body;
+    })
+    .catch(err => {
+      return Promise.reject(createApiError(err, '网络请求失败'));
+    });
+}
+
 module.exports = {
-  requestWithAuth
+  requestWithAuth,
+  requestApi,
+  extractApiErrorMessage
 }
 
 // 提供 uploadFile 的安全封装，行为与 requestWithAuth 类似：在遇到登录失效时尝试 wx.login 并重试一次

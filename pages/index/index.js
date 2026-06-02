@@ -17,7 +17,17 @@ Page({
         role: 514,
         show: false,
         index: 1
-      },{
+      },
+      {
+        title: '客户信息查询',
+        iamge: './images/customer.png',
+        src: '/subpackages/member/customer-info/customer-info',
+        class: 'twomenu-image1',
+        role: 700,
+        show: false,
+        index: 8
+      },
+      {
         title: '员工卡劵中心',
         iamge: './images/card-center.png',
   src: '/subpackages/member/card-center/card-center',
@@ -247,6 +257,14 @@ Page({
   roleshow: function(arr) {
     var that = this
     that.data.menulist.forEach((i,index) => {
+      if (i.title === '客户信息查询') {
+        if (app.page !== '单店登录' || !arr.includes(700)) {
+          that.setData({
+            ['menulist[' + index + '].show']: false
+          })
+          return
+        }
+      }
       if (arr.includes(i.role)) {
         // let show = that.data.menulist[0].towmenu[index].show
         that.setData({
@@ -547,6 +565,7 @@ Page({
       }
   },
   cancellation: function(e) {
+    var that = this
     wx.showModal({
       title: '提示',
       content: '确认注销当前用户？',
@@ -572,28 +591,34 @@ Page({
                 data: params,
                 success: function(res) {
                   if (res.data.result_code === '0') {
+                    if (typeof app.clearLoginState === 'function') {
+                      app.clearLoginState()
+                    }
+                    that.setData({
+                      name: '',
+                      UserName: '',
+                      powerModel: [],
+                      logonInfo: {},
+                      hasUserInfo: false
+                    })
                     wx.showToast({
                       title: '注销成功',
                       icon: 'success',
                       duration: 3000
                     })
-                    wx.navigateTo({
-                      url: '/pages/scan/scan',
-                      success: function(data) {
-                        // 通过eventChannel向被打开页面传送数据
-                        // data.eventChannel.emit('acceptDataFromOpenerPage', { data1: res.data.result_data })
-                      }
+                    wx.reLaunch({
+                      url: '/pages/scan/scan'
                     })
                   } else {
                     wx.showToast({
-                      title: '注销失败',
+                      title: res.data.result_msg || '注销失败',
                       icon: 'none',
                     })
                   }
                 },
                 fail: function(erroe){
                   wx.showToast({
-                    title: '注销失败',
+                    title: (erroe && erroe.errMsg) ? erroe.errMsg : '注销失败',
                     icon: 'none',
                   })
                 }

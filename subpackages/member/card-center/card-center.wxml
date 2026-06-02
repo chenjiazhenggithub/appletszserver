@@ -31,8 +31,8 @@
         </view>
       </view>
       <view wx:if="{{menuItem.fold}}" class="border"></view>
-      <view wx:if="{{menuItem.fold}}" class="remarkbox" style="{{menuItem.fold ? '' : 'height:0;'}}">
-        <p>{{menuItem.Remark}}</p>
+      <view wx:if="{{menuItem.fold}}" class="remarkbox">
+        <text>{{menuItem.Remark}}</text>
       </view>
     </view>
   </view>

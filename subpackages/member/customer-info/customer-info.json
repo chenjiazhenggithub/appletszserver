@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "客户信息查询",
+  "usingComponents": {
+    "van-dropdown-menu": "/miniprogram_npm/@vant/weapp/dist/dropdown-menu/index",
+    "van-dropdown-item": "/miniprogram_npm/@vant/weapp/dist/dropdown-item/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/dist/field/index",
+    "van-button": "/miniprogram_npm/@vant/weapp/dist/button/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/dist/cell-group/index",
+    "van-popup": "/miniprogram_npm/@vant/weapp/dist/popup/index",
+    "van-checkbox": "/miniprogram_npm/@vant/weapp/dist/checkbox/index"
+  }
+}

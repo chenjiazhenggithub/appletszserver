@@ -1,0 +1,246 @@
+<view class="tab-container">
+  <view class="top-box">
+    <van-dropdown-menu class="head-dropdown" active-color="#1a6c9e">
+      <van-dropdown-item value="{{ SfCardId }}" bind:change="onChangedropdown" options="{{ option1 }}" />
+    </van-dropdown-menu>
+    <van-cell-group class="head-input">
+      <van-field
+      value="{{ RegisterNo }}"
+      placeholder=""
+      border="{{ false }}"
+      bind:input="onChangefield"
+      bind:change="onChangefield"
+      />
+    </van-cell-group>
+  </view>
+  <view class="button-box">
+    <van-button type="primary" color="#1a6c9e" custom-class="query-btn" bind:click="getList">查询信息</van-button>
+  </view>
+  <view class="tabs-header">
+    <view class="tab-btn {{activeTab === 'archive' ? 'active' : ''}}" data-tab="archive" bindtap="switchTab">客户档案</view>
+    <view class="tab-btn {{activeTab === 'coupon' ? 'active' : ''}}" data-tab="coupon" bindtap="switchTab">优惠券</view>
+    <view class="tab-btn {{activeTab === 'follow' ? 'active' : ''}}" data-tab="follow" bindtap="switchTab">跟进记录</view>
+    <view class="tab-btn {{activeTab === 'complaint' ? 'active' : ''}}" data-tab="complaint" bindtap="switchTab">投诉信息</view>
+  </view>
+
+  <view wx:if="{{!hasMemberProfile}}" class="tab-panel empty-panel">
+    <view class="empty-state">
+      <text class="empty-title">暂无数据</text>
+      <text class="empty-subtitle">请先输入车牌号或车架号后查询</text>
+    </view>
+  </view>
+
+  <view wx:if="{{hasMemberProfile && activeTab === 'archive'}}" class="tab-panel active-panel">
+    <view class="card-content">
+      <view class="info-row">
+        <text class="info-label">车牌号</text>
+        <view class="info-value plate-wrapper">
+          <text>{{memberProfile.licensePlate ? memberProfile.licensePlate : '--'}}</text>
+          <text wx:if="{{isMember}}" class="badge-gold inline-member-badge">{{memberProfile.memberLevel ? memberProfile.memberLevel : '--'}}</text>
+          <button wx:else class="btn-apply-card inline-apply-btn" bindtap="handleApplyCard">办卡</button>
+        </view>
+      </view>
+      <view class="info-row">
+        <text class="info-label">车架号</text>
+        <view class="info-value vin-wrapper">
+          <text class="vin-number">{{memberProfile.vin ? memberProfile.vin : '--'}}</text>
+          <text class="latest-mileage">{{memberProfile.latestMileage ? ('车机最新里程' + memberProfile.latestMileage) : '--'}}</text>
+        </view>
+      </view>
+      <view class="info-row"><text class="info-label">客户姓名</text><text class="info-value">{{memberProfile.customerName ? memberProfile.customerName : '--'}}</text></view>
+
+      <view class="info-row phone-row">
+        <text class="info-label">手机号</text>
+        <view class="info-value phone-wrapper">
+          <text class="phone-number">{{memberProfile.mobile ? memberProfile.mobile : '--'}}</text>
+          <button class="btn-invite" bindtap="openInviteModal">邀约</button>
+        </view>
+      </view>
+
+      <view class="info-row"><text class="info-label">购车日期</text><text class="info-value">{{memberProfile.purchaseDate ? memberProfile.purchaseDate : '--'}}</text></view>
+
+      <view class="info-row">
+        <text class="info-label">商业险到期</text>
+        <view class="info-value">
+          <view class="expiry-wrapper">
+            <text class="days-badge">{{memberProfile.commercialInsuranceRemainingText ? memberProfile.commercialInsuranceRemainingText : '--'}}</text>
+            <button class="btn-view-image {{!carouselImages.length ? 'btn-view-image-disabled' : ''}}" disabled="{{!carouselImages.length}}" bindtap="openCarousel">查看图片</button>
+          </view>
+          <view class="insurance-detail">
+            <view class="insurance-item" wx:for="{{fixedInsuranceItems}}" wx:key="name">
+              <text class="insurance-name">{{item.name}}</text>
+              <text class="insurance-amount">{{item.amountText}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="info-row"><text class="info-label">车系</text><text class="info-value strong">{{memberProfile.vehicleSeries ? memberProfile.vehicleSeries : '--'}}</text></view>
+      <view class="info-row"><text class="info-label">车龄/收购价</text><view class="info-value"><text>{{memberProfile.vehicleAgeText ? memberProfile.vehicleAgeText : '--'}} · </text><text class="highlight-price">二手车收购价 {{memberProfile.usedCarPurchasePrice !== null && memberProfile.usedCarPurchasePrice !== undefined ? memberProfile.usedCarPurchasePrice : '--'}} 元</text></view></view>
+      <view class="info-row"><text class="info-label">权益</text><text class="info-value tag-blue">{{memberProfile.memberRightsSummary ? memberProfile.memberRightsSummary : '--'}}</text></view>
+      <view class="info-row"><text class="info-label">末次进店信息</text><view class="info-value"><text class="visit-chip">{{memberProfile.lastVisitDate ? memberProfile.lastVisitDate : '--'}} · {{memberProfile.lastVisitServiceType ? memberProfile.lastVisitServiceType : '--'}}</text><text class="visit-chip">{{memberProfile.lastVisitMileage ? memberProfile.lastVisitMileage : '--'}}</text></view></view>
+      <view class="info-row"><text class="info-label">客户类型</text><text class="info-value tag-blue">{{memberProfile.customerType ? memberProfile.customerType : '--'}}</text></view>
+      <view class="info-row no-border"><text class="info-label">投诉状态</text><text class="info-value tag-green">{{memberProfile.complaintStatus ? memberProfile.complaintStatus : '--'}}</text></view>
+    </view>
+  </view>
+
+  <view wx:if="{{hasMemberProfile && activeTab === 'coupon'}}" class="tab-panel active-panel">
+    <view class="panel-header"><text class="panel-title">优惠券</text><text class="badge-gold">{{coupons.length}}张可用</text></view>
+    <view class="card-content">
+      <view wx:for="{{coupons}}" wx:key="name" class="coupon-card">
+        <view class="coupon-title">{{item.title}}</view>
+        <view class="coupon-desc">{{item.desc}}</view>
+        <view class="coupon-date">{{item.date}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{hasMemberProfile && activeTab === 'follow'}}" class="tab-panel active-panel">
+    <view class="panel-header"><text class="panel-title">跟进记录</text><text class="badge-gold">最近动态</text></view>
+    <view class="card-content">
+      <view class="follow-list">
+        <view wx:for="{{followRecords}}" wx:key="id" class="follow-item">
+          <view class="follow-meta"><text class="follow-date">{{item.date}}</text><text>{{item.method}}</text></view>
+          <view class="follow-content">{{item.content}}</view>
+          <image wx:if="{{item.image}}" class="record-image" src="{{item.image}}" mode="aspectFit"></image>
+          <view><text class="staff-chip">{{item.staff}}</text></view>
+        </view>
+      </view>
+      <view class="tiny-note">邀约记录会自动添加至此</view>
+    </view>
+  </view>
+
+  <view wx:if="{{hasMemberProfile && activeTab === 'complaint'}}" class="tab-panel active-panel">
+    <view class="panel-header"><text class="panel-title">投诉信息</text><text class="badge-gold">客诉档案</text></view>
+    <view class="card-content">
+      <view wx:if="{{!complaints.length}}" class="complaint-card no-border">
+        <text class="complaint-status">无投诉记录</text>
+      </view>
+      <view wx:for="{{complaints}}" wx:key="index" class="complaint-card {{index === complaints.length - 1 ? 'no-border' : ''}}">
+        <text class="complaint-status">{{item['问题反馈类型'] || '--'}}</text>
+        <view class="complaint-title">{{item['记录时间'] || '投诉记录'}}</view>
+        <view class="complaint-detail">{{item['反馈内容'] || '--'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showInviteModal}}" class="modal-overlay" catchtap="closeInviteModal">
+    <view class="modal-card" catchtap="noop">
+      <view class="modal-title">选择邀约方式</view>
+      <view class="modal-desc">请选择与客户沟通的方式</view>
+      <view class="option-group invite-option-group">
+        <view class="option-btn invite-option-btn" data-method="call" bindtap="chooseInviteMethod">
+          <text class="option-icon">📞</text>
+          <text class="option-text">外呼 (直接拨号)</text>
+        </view>
+        <view class="option-btn invite-option-btn" data-method="wechat" bindtap="chooseInviteMethod">
+          <text class="option-icon">💬</text>
+          <text class="option-text">微信</text>
+        </view>
+        <view class="option-btn invite-option-btn" data-method="wecom" bindtap="chooseInviteMethod">
+          <text class="option-icon">🏢</text>
+          <text class="option-text">企微</text>
+        </view>
+        <view class="option-btn invite-option-btn" data-method="sms" bindtap="chooseInviteMethod">
+          <text class="option-icon">✉️</text>
+          <text class="option-text">短信</text>
+        </view>
+      </view>
+      <view class="button-group invite-button-group">
+        <view class="btn-secondary invite-cancel-btn" bindtap="closeInviteModal">取消</view>
+      </view>
+    </view>
+  </view>
+
+  <van-popup show="{{showVehiclePicker}}" bind:close="closeVehiclePicker" round="true" custom-style="width:93%;">
+    <view>
+      <view style="text-align: center;margin:20px auto;color:#1f3e53;">
+        <text>车辆列表</text>
+      </view>
+      <view style="margin-bottom: 30px;" class="{{queryVehicleList.length > 4 ? 'vehicle-autobox' : ''}}">
+        <view
+          class="vehicle-listbox {{selectedVehicleIndex === index ? 'vehicle-border-active' : ''}}"
+          wx:for="{{queryVehicleList}}"
+          wx:key="index"
+          data-index="{{index}}"
+          bindtap="onSelectVehicle"
+        >
+          <view style="line-height: 20px;margin-left: 15px;">
+            <view class="vehicle-main-text">{{item.licensePlate || '未识别车牌号'}}</view>
+            <view class="vehicle-sub-text">车架号：{{item.vin || '未识别'}}</view>
+            <view class="vehicle-sub-text">客户姓名：{{item.customerName || '未知客户'}}</view>
+          </view>
+          <view style="margin-right: 5px;">
+            <van-checkbox checked="{{selectedVehicleIndex === index}}" checked-color="#1a6c9e" value="{{selectedVehicleIndex === index}}"></van-checkbox>
+          </view>
+        </view>
+      </view>
+      <view class="vehicle-button-box">
+        <van-button type="default" custom-class="vehicle-popup-btn" bind:click="confirmVehicleSelection">确认选择</van-button>
+      </view>
+    </view>
+  </van-popup>
+
+  <view wx:if="{{showMediaModal}}" class="modal-overlay media-modal-overlay" catchtap="closeMediaModal" catchtouchmove="noop">
+    <view class="modal-card media-modal-card" catchtap="noop" catchtouchmove="noop">
+      <view class="modal-title">{{mediaModalTitle}}</view>
+      <view class="modal-desc">{{mediaModalDesc}}</view>
+      <view class="media-scroll-wrap">
+      <scroll-view class="media-modal-scroll" scroll-y="true" enhanced="false" show-scrollbar="false">
+        <input class="input-field media-input-field media-input-field-disabled" value="{{mediaTopic}}" placeholder="沟通主题" disabled="{{true}}" />
+        <textarea class="textarea-field media-textarea-field" value="{{mediaContent}}" placeholder="沟通内容摘要..." bindinput="onContentInput"></textarea>
+        <view wx:if="{{mediaNeedImage}}" class="image-preview-area media-preview-area">
+          <view class="media-upload-head">
+            <view class="media-upload-summary">已上传 {{uploadedImageList.length}} / {{mediaUploadLimit}}</view>
+            <view wx:if="{{uploadedImageList.length < mediaUploadLimit}}" class="media-upload-link" bindtap="chooseImage">继续上传</view>
+          </view>
+          <view wx:if="{{!uploadedImageList.length}}" class="media-upload-entry" bindtap="chooseImage">
+            <view class="media-upload-icon">+</view>
+            <view class="media-upload-text">上传图片</view>
+            <view class="media-upload-tip">支持相册或拍照，最多 {{mediaUploadLimit}} 张</view>
+          </view>
+          <view wx:if="{{uploadedImageList.length}}" class="media-image-grid">
+            <view wx:for="{{uploadedImageList}}" wx:key="url" class="media-image-card">
+              <view class="media-image-header">
+                <view class="media-image-badge">第 {{index + 1}} 张</view>
+                <view class="media-delete-btn" data-index="{{index}}" bindtap="confirmDeleteImage">删除</view>
+              </view>
+              <image class="preview-img media-preview-img" src="{{item.previewUrl}}" mode="aspectFit"></image>
+              <view class="media-image-footer">
+                <text class="media-image-status">图片已上传，可直接保存记录</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+      <view class="media-scrollbar-mask"></view>
+      </view>
+      <view class="button-group media-button-group">
+        <view class="btn-secondary media-cancel-btn" bindtap="closeMediaModal">取消</view>
+        <view class="btn-primary media-save-btn" bindtap="saveMediaRecord">保存记录</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showCarousel}}" class="image-modal" catchtap="closeCarousel">
+    <view class="modal-carousel" catchtap="noop">
+      <view class="carousel-header">
+        <text class="carousel-title">{{carouselTitle}}</text>
+        <view class="close-carousel" bindtap="closeCarousel">✕</view>
+      </view>
+      <view class="image-slider">
+        <view class="nav-arrow nav-left" bindtap="prevImage">
+          <text class="nav-arrow-icon">‹</text>
+        </view>
+        <view class="slider-img">
+          <image wx:if="{{carouselImages.length}}" class="carousel-image" src="{{carouselImages[carouselIndex]}}" mode="aspectFit"></image>
+          <view wx:else class="insurance-empty-text">暂无图片</view>
+        </view>
+        <view class="nav-arrow nav-right" bindtap="nextImage">
+          <text class="nav-arrow-icon">›</text>
+        </view>
+      </view>
+      <view class="slide-indicator">{{carouselImages.length ? carouselIndex + 1 : 0}} / {{carouselImages.length}}</view>
+    </view>
+  </view>
+</view>

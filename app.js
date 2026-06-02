@@ -209,6 +209,7 @@ App({
                 that.globalData.StoreId = item.data.result_data.StoreId
                 that.globalData.UserNo = item.data.result_data.UserNo
                 that.globalData.powerModel = item.data.result_data.powerModel
+                that.globalData.ServiceGroupId = item.data.result_data.ServiceGroupId
               }
               if (that.userStorenameCallback) {
                 that.userStorenameCallback(item)
@@ -224,6 +225,24 @@ App({
       })
     })
   },
+  clearLoginState: function () {
+    this.globalData.userInfo = null
+    this.globalData.storename = ''
+    this.globalData.UserName = ''
+    this.globalData.ClassName = ''
+    this.globalData.UserId = null
+    this.globalData.StoreId = ''
+    this.globalData.UserNo = ''
+    this.globalData.powerModel = []
+    this.globalData.CardId = ''
+    this.globalData.ServiceGroupId = null
+
+    this.isfirst = true
+    this.isshowrole = false
+    this.page = ''
+    this.jituanuserId = null
+    this.jituanname = ''
+  },
   globalData: {
     userInfo: null,
     storename: '',
@@ -233,7 +252,8 @@ App({
     StoreId: '',
     UserNo: '',
     powerModel: [],
-    CardId: ''
+    CardId: '',
+    ServiceGroupId: null
   },
   isfirst: true,
   isshowrole: true,

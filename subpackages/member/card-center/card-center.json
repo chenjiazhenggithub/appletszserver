@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "员工卡劵中心",
   "usingComponents": {
+    "van-icon": "/miniprogram_npm/@vant/weapp/dist/icon/index"
   }
 }

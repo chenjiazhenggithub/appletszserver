@@ -1,5 +1,13 @@
 {
   "navigationBarTitleText": "核销历史",
   "usingComponents": {
+    "van-dropdown-menu": "/miniprogram_npm/@vant/weapp/dist/dropdown-menu/index",
+    "van-dropdown-item": "/miniprogram_npm/@vant/weapp/dist/dropdown-item/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/dist/cell-group/index",
+    "van-cell": "/miniprogram_npm/@vant/weapp/dist/cell/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/dist/icon/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/dist/field/index",
+    "van-button": "/miniprogram_npm/@vant/weapp/dist/button/index",
+    "van-calendar": "/miniprogram_npm/@vant/weapp/dist/calendar/index"
   }
 }

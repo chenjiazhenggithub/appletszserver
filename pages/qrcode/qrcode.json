@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "优惠劵",
   "usingComponents": {
+    "van-icon": "/miniprogram_npm/@vant/weapp/dist/icon/index"
   }
 }

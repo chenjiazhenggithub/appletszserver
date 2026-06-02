@@ -10,6 +10,7 @@
       "root": "subpackages/member",
       "name": "member",
       "pages": [
+        "customer-info/customer-info",
         "customer-card/customer-card",
         "member-inquiry/member-inquiry",
         "history/history",
@@ -33,24 +34,7 @@
     "navigationBarTitleText": "用户中心",
     "navigationBarTextStyle":"black"
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
-  "usingComponents": {
-    "van-dropdown-menu": "/miniprogram_npm/@vant/weapp/dist/dropdown-menu/index",
-    "van-dropdown-item": "/miniprogram_npm/@vant/weapp/dist/dropdown-item/index",
-    "van-field": "/miniprogram_npm/@vant/weapp/dist/field/index",
-    "van-button": "/miniprogram_npm/@vant/weapp/dist/button/index",
-    "van-calendar": "/miniprogram_npm/@vant/weapp/dist/calendar/index",
-    "van-tab": "/miniprogram_npm/@vant/weapp/dist/tab/index",
-    "van-tabs": "/miniprogram_npm/@vant/weapp/dist/tabs/index",
-    "van-popup": "/miniprogram_npm/@vant/weapp/dist/popup/index",
-    "van-checkbox": "/miniprogram_npm/@vant/weapp/dist/checkbox/index",
-    "van-divider": "/miniprogram_npm/@vant/weapp/dist/divider/index",
-    "van-cell": "/miniprogram_npm/@vant/weapp/dist/cell/index",
-    "van-cell-group": "/miniprogram_npm/@vant/weapp/dist/cell-group/index",
-  "van-icon": "/miniprogram_npm/@vant/weapp/dist/icon/index",
-  "van-search": "/miniprogram_npm/@vant/weapp/search/index",
-    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index",
-    "van-grid": "/miniprogram_npm/@vant/weapp/grid/index",
-    "van-grid-item": "/miniprogram_npm/@vant/weapp/grid-item/index"
-  }
+  "usingComponents": {}
 }

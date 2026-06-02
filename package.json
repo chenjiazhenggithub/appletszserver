@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.29.7",
     "@vant/weapp": "^1.8.7",
     "moment": "^2.29.1",
     "qrcode": "^1.5.3",

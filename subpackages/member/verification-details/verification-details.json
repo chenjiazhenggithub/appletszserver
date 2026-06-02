@@ -1,5 +1,10 @@
 {
   "navigationBarTitleText": "待核销项目列表",
   "usingComponents": {
+    "van-dropdown-menu": "/miniprogram_npm/@vant/weapp/dist/dropdown-menu/index",
+    "van-dropdown-item": "/miniprogram_npm/@vant/weapp/dist/dropdown-item/index",
+    "van-search": "/miniprogram_npm/@vant/weapp/dist/search/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/dist/icon/index",
+    "van-empty": "/miniprogram_npm/@vant/weapp/dist/empty/index"
   }
 }

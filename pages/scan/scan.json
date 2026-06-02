@@ -1,4 +1,10 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "van-tabs": "/miniprogram_npm/@vant/weapp/dist/tabs/index",
+    "van-tab": "/miniprogram_npm/@vant/weapp/dist/tab/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/dist/cell-group/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/dist/field/index",
+    "van-button": "/miniprogram_npm/@vant/weapp/dist/button/index"
+  },
   "navigationBarTitleText": "登录"
 }

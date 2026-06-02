@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "编辑转赠信息",
   "usingComponents": {
+    "van-button": "/miniprogram_npm/@vant/weapp/dist/button/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/dist/icon/index",
+    "van-checkbox": "/miniprogram_npm/@vant/weapp/dist/checkbox/index"
   }
 }
