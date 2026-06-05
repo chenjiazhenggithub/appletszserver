@@ -1,26 +1,28 @@
 <view class="tab-container">
-  <view class="top-box">
-    <van-dropdown-menu class="head-dropdown" active-color="#1a6c9e">
-      <van-dropdown-item value="{{ SfCardId }}" bind:change="onChangedropdown" options="{{ option1 }}" />
-    </van-dropdown-menu>
-    <van-cell-group class="head-input">
-      <van-field
-      value="{{ RegisterNo }}"
-      placeholder=""
-      border="{{ false }}"
-      bind:input="onChangefield"
-      bind:change="onChangefield"
-      />
-    </van-cell-group>
-  </view>
-  <view class="button-box">
-    <van-button type="primary" color="#1a6c9e" custom-class="query-btn" bind:click="getList">查询信息</van-button>
-  </view>
-  <view class="tabs-header">
-    <view class="tab-btn {{activeTab === 'archive' ? 'active' : ''}}" data-tab="archive" bindtap="switchTab">客户档案</view>
-    <view class="tab-btn {{activeTab === 'coupon' ? 'active' : ''}}" data-tab="coupon" bindtap="switchTab">优惠券</view>
-    <view class="tab-btn {{activeTab === 'follow' ? 'active' : ''}}" data-tab="follow" bindtap="switchTab">跟进记录</view>
-    <view class="tab-btn {{activeTab === 'complaint' ? 'active' : ''}}" data-tab="complaint" bindtap="switchTab">投诉信息</view>
+  <view class="sticky-head">
+    <view class="top-box">
+      <van-dropdown-menu class="head-dropdown" active-color="#1a6c9e">
+        <van-dropdown-item value="{{ SfCardId }}" bind:change="onChangedropdown" options="{{ option1 }}" />
+      </van-dropdown-menu>
+      <van-cell-group class="head-input">
+        <van-field
+        value="{{ RegisterNo }}"
+        placeholder=""
+        border="{{ false }}"
+        bind:input="onChangefield"
+        bind:change="onChangefield"
+        />
+      </van-cell-group>
+    </view>
+    <view class="button-box">
+      <van-button type="primary" color="#1a6c9e" custom-class="query-btn" bind:click="getList">查询信息</van-button>
+    </view>
+    <view class="tabs-header">
+      <view class="tab-btn {{activeTab === 'archive' ? 'active' : ''}}" data-tab="archive" bindtap="switchTab">客户档案</view>
+      <view class="tab-btn {{activeTab === 'coupon' ? 'active' : ''}}" data-tab="coupon" bindtap="switchTab">优惠券</view>
+      <view class="tab-btn {{activeTab === 'follow' ? 'active' : ''}}" data-tab="follow" bindtap="switchTab">跟进记录</view>
+      <view class="tab-btn {{activeTab === 'complaint' ? 'active' : ''}}" data-tab="complaint" bindtap="switchTab">投诉信息</view>
+    </view>
   </view>
 
   <view wx:if="{{!hasMemberProfile}}" class="tab-panel empty-panel">
@@ -76,7 +78,17 @@
       </view>
 
       <view class="info-row"><text class="info-label">车系</text><text class="info-value strong">{{memberProfile.vehicleSeries ? memberProfile.vehicleSeries : '--'}}</text></view>
-      <view class="info-row"><text class="info-label">车龄/收购价</text><view class="info-value"><text>{{memberProfile.vehicleAgeText ? memberProfile.vehicleAgeText : '--'}} · </text><text class="highlight-price">二手车收购价 {{memberProfile.usedCarPurchasePrice !== null && memberProfile.usedCarPurchasePrice !== undefined ? memberProfile.usedCarPurchasePrice : '--'}} 元</text></view></view>
+      <view class="info-row">
+        <text class="info-label">车龄/收购价</text>
+        <view class="info-value used-car-price-wrap">
+          <text>{{memberProfile.vehicleAgeText ? memberProfile.vehicleAgeText : '--'}} · </text>
+          <view wx:if="{{usedCarEstimateLoading}}" class="price-loading-inline">
+            <view class="price-loading-dot"></view>
+            <text class="price-loading-text">二手车收购价估算中...</text>
+          </view>
+          <text wx:else class="highlight-price">二手车收购价 {{memberProfile.usedCarPurchasePrice !== null && memberProfile.usedCarPurchasePrice !== undefined ? memberProfile.usedCarPurchasePrice : '--'}} 元</text>
+        </view>
+      </view>
       <view class="info-row"><text class="info-label">权益</text><text class="info-value tag-blue">{{memberProfile.memberRightsSummary ? memberProfile.memberRightsSummary : '--'}}</text></view>
       <view class="info-row"><text class="info-label">末次进店信息</text><view class="info-value"><text class="visit-chip">{{memberProfile.lastVisitDate ? memberProfile.lastVisitDate : '--'}} · {{memberProfile.lastVisitServiceType ? memberProfile.lastVisitServiceType : '--'}}</text><text class="visit-chip">{{memberProfile.lastVisitMileage ? memberProfile.lastVisitMileage : '--'}}</text></view></view>
       <view class="info-row"><text class="info-label">客户类型</text><text class="info-value tag-blue">{{memberProfile.customerType ? memberProfile.customerType : '--'}}</text></view>
@@ -124,7 +136,7 @@
     </view>
   </view>
 
-  <view wx:if="{{showInviteModal}}" class="modal-overlay" catchtap="closeInviteModal">
+  <view wx:if="{{showInviteModal}}" class="modal-overlay" catchtap="noop">
     <view class="modal-card" catchtap="noop">
       <view class="modal-title">选择邀约方式</view>
       <view class="modal-desc">请选择与客户沟通的方式</view>

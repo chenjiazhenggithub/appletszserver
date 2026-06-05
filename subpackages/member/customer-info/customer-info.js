@@ -40,6 +40,7 @@ Page({
     carouselTitle: '商业险凭证',
     carouselItems: [],
     carouselImages: [],
+    usedCarEstimateLoading: false,
     coupons: [],
     followRecords: [],
     complaints: []
@@ -481,6 +482,8 @@ Page({
   applySelectedVehicle: function (vehicle, list, index) {
     var item = vehicle || {};
 
+    this._usedCarEstimateToken = (this._usedCarEstimateToken || 0) + 1;
+
     this.setData({
       selectedVehicle: item,
       memberProfile: {},
@@ -491,6 +494,7 @@ Page({
       queryVehicleList: list || [item],
       selectedVehicleIndex: typeof index === 'number' ? index : 0,
       showVehiclePicker: false,
+      usedCarEstimateLoading: false,
       followRecords: [],
       coupons: [],
       complaints: []
@@ -555,11 +559,196 @@ Page({
           carouselTitle: imageItems.length ? imageItems[0].title : '保险凭证'
         });
         this.stopLoading();
+
+        this.startUsedCarEstimate(profile);
       }.bind(this))
       .catch(function (err) {
         var errMsg = request.extractApiErrorMessage(err, '会员档案查询失败，请稍后重试');
         this.showApiError(errMsg);
+        this.setData({ usedCarEstimateLoading: false });
         this.stopLoading();
+      }.bind(this));
+  },
+  pickFordLatestMileage: function (source) {
+    var data = source && typeof source === 'object' ? source : {};
+    console.log('pickFordLatestMileage:', data);
+    var keys = [
+      'lateSTMILEAGE',
+      'lateST MILEAGE',
+      'latestMileage',
+      'LATEST_MILEAGE',
+      'latest_mileage',
+      'latesT_MILEAGE'
+    ];
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (Object.prototype.hasOwnProperty.call(data, key) && data[key] !== null && data[key] !== undefined) {
+        var text = String(data[key]).trim();
+        if (text) {
+          return text;
+        }
+      }
+    }
+
+    return '';
+  },
+  fetchFordMileageByVin: function (profile) {
+    var sourceProfile = profile && typeof profile === 'object' ? profile : {};
+    var serviceGroupId = app.globalData.ServiceGroupId;
+    var vin = sourceProfile.vin;
+
+    if (serviceGroupId === undefined || serviceGroupId === null || serviceGroupId === '') {
+      return Promise.resolve('');
+    }
+
+    if (vin === undefined || vin === null || String(vin).trim() === '') {
+      return Promise.resolve('');
+    }
+
+    return miniProgramApi
+      .getFordBaseCustomerByVin({
+        brand: 'Ford',
+        vin: String(vin).trim(),
+        serviceGroupId: String(serviceGroupId)
+      })
+      .then(function (body) {
+        var resultData = body && body.data;
+        var data = (resultData && typeof resultData === 'object') ? resultData : {};
+        console.log('getFordBaseCustomerByVin:', data);
+        var mileage = this.pickFordLatestMileage(data);
+
+        return mileage || '';
+      }.bind(this))
+      .catch(function () {
+        return '';
+      }.bind(this));
+  },
+  startUsedCarEstimate: function (profile) {
+    var sourceProfile = profile && typeof profile === 'object' ? profile : {};
+    var vehicleId = sourceProfile.vehicleId;
+    var estimateToken = (this._usedCarEstimateToken || 0) + 1;
+
+    this._usedCarEstimateToken = estimateToken;
+
+    if (vehicleId === undefined || vehicleId === null || vehicleId === '') {
+      this.setData({ usedCarEstimateLoading: false });
+      return;
+    }
+
+    this.setData({ usedCarEstimateLoading: true });
+
+    this.fetchFordMileageByVin(sourceProfile)
+      .then(function (fordLatestMileage) {
+        if (estimateToken !== this._usedCarEstimateToken) {
+          return Promise.reject(new Error('估价请求已过期'));
+        }
+
+        var latestProfile = this.data.memberProfile || {};
+        if (latestProfile.vehicleId !== vehicleId) {
+          return Promise.reject(new Error('车辆已切换'));
+        }
+
+        var profileForEstimate = Object.assign({}, latestProfile, {
+          fordLatestMileage: fordLatestMileage
+        });
+
+        return this.tryEstimateUsedCarPurchasePrice(profileForEstimate, estimateToken);
+      }.bind(this))
+      .catch(function (err) {
+        if (estimateToken !== this._usedCarEstimateToken) {
+          return;
+        }
+
+        console.error('startUsedCarEstimate failed:', err);
+        this.setData({ usedCarEstimateLoading: false });
+      }.bind(this));
+  },
+  getDeepseekRuntimeConfig: function () {
+    var appApiKey = app && app.globalData ? app.globalData.DeepSeekApiKey : '';
+    var appEndpoint = app && app.globalData ? app.globalData.DeepSeekEndpoint : '';
+    var appModel = app && app.globalData ? app.globalData.DeepSeekModel : '';
+
+    var storageApiKey = '';
+    var storageEndpoint = '';
+    var storageModel = '';
+
+    try {
+      storageApiKey = wx.getStorageSync('deepseek_api_key') || '';
+      storageEndpoint = wx.getStorageSync('deepseek_endpoint') || '';
+      storageModel = wx.getStorageSync('deepseek_model') || '';
+    } catch (e) {
+      storageApiKey = '';
+      storageEndpoint = '';
+      storageModel = '';
+    }
+
+    return {
+      apiKey: String(appApiKey || storageApiKey || '').trim(),
+      endpoint: String(appEndpoint || storageEndpoint || '').trim(),
+      model: String(appModel || storageModel || '').trim()
+    };
+  },
+  tryEstimateUsedCarPurchasePrice: function (profile, token) {
+    var sourceProfile = profile && typeof profile === 'object' ? profile : {};
+    var vehicleId = sourceProfile.vehicleId;
+    var estimateToken = typeof token === 'number' ? token : ((this._usedCarEstimateToken || 0) + 1);
+
+    if (typeof token !== 'number') {
+      this._usedCarEstimateToken = estimateToken;
+    }
+
+    if (vehicleId === undefined || vehicleId === null || vehicleId === '') {
+      this.setData({ usedCarEstimateLoading: false });
+      return;
+    }
+
+    var cfg = this.getDeepseekRuntimeConfig();
+
+    return miniProgramApi
+      .estimateUsedCarPurchasePrice({
+        profile: sourceProfile,
+        apiKey: cfg.apiKey,
+        endpoint: cfg.endpoint,
+        model: cfg.model
+      })
+      .then(function (body) {
+        var resultData = body && body.result_data ? body.result_data : {};
+        var estimated = resultData.usedCarPurchasePrice;
+
+        if (estimateToken !== this._usedCarEstimateToken) {
+          return;
+        }
+
+        var latestProfile = this.data.memberProfile || {};
+        if (latestProfile.vehicleId !== vehicleId) {
+          return;
+        }
+
+        if (estimated === null || estimated === undefined || estimated === '') {
+          this.setData({
+            usedCarEstimateLoading: false,
+            memberProfile: Object.assign({}, latestProfile, {
+              usedCarPurchasePrice: ''
+            })
+          });
+          return;
+        }
+
+        this.setData({
+          usedCarEstimateLoading: false,
+          memberProfile: Object.assign({}, latestProfile, {
+            usedCarPurchasePrice: estimated
+          })
+        });
+      }.bind(this))
+      .catch(function (err) {
+        if (estimateToken !== this._usedCarEstimateToken) {
+          return;
+        }
+
+        console.error('estimateUsedCarPurchasePrice failed:', err);
+        this.setData({ usedCarEstimateLoading: false });
       }.bind(this));
   },
   onSelectVehicle: function (e) {
