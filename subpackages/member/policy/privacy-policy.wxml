@@ -1,0 +1,53 @@
+<view class="policy-page policy-page-privacy">
+  <view class="policy-hero">
+    <view class="policy-kicker">PRIVACY NOTICE</view>
+    <view class="policy-title">隐私政策</view>
+    <view class="policy-subtitle">我们仅在完成会员服务和售后业务所必需的范围内收集和使用个人信息。</view>
+    <view class="policy-meta">更新日期：2026-06-15</view>
+  </view>
+
+  <view class="policy-card policy-summary-card">
+    <view class="policy-summary-title">核心原则</view>
+    <text class="policy-summary-text">遵循合法、正当、必要和最小够用原则处理个人信息，并通过访问控制、权限隔离等方式保障数据安全。</text>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">01</view>
+    <view class="policy-body">
+      <view class="policy-heading">收集信息类型</view>
+      <text class="policy-text">在会员办理和服务过程中，我们可能收集姓名、手机号、车牌号、车架号、车型信息、身份证号、沟通记录及图片信息。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">02</view>
+    <view class="policy-body">
+      <view class="policy-heading">收集目的</view>
+      <text class="policy-text">用于会员办理、车辆档案管理、售后联系、服务邀约、活动通知及服务质量改进，确保业务流程正常完成。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">03</view>
+    <view class="policy-body">
+      <view class="policy-heading">使用与存储</view>
+      <text class="policy-text">仅在实现业务目的范围内使用上述信息，采取访问控制等措施保护数据安全，并在法律法规要求的期限内保存。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">04</view>
+    <view class="policy-body">
+      <view class="policy-heading">共享与披露</view>
+      <text class="policy-text">未经用户同意，不会向无关第三方共享个人信息；法律法规另有要求，或为完成用户明确授权业务所必需的情形除外。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">05</view>
+    <view class="policy-body">
+      <view class="policy-heading">用户权利</view>
+      <text class="policy-text">用户可申请查询、更正或删除个人信息；如对隐私处理有疑问，可联系门店服务人员或运营方进行处理。</text>
+    </view>
+  </view>
+</view>

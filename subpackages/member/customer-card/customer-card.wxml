@@ -142,6 +142,17 @@
     </view>
   </view>
   <view class="button">
+    <view class="agreement-row">
+      <checkbox-group bindchange="onAgreementChange">
+        <label class="agreement-inline">
+          <checkbox value="agree" checked="{{agreePolicy}}" color="#c0a474" />
+          <text class="agreement-check-text">我已阅读并同意</text>
+          <text class="agreement-link" data-type="user" bindtap="openAgreementPage">《用户服务协议》</text>
+          <text class="agreement-link-divider">和</text>
+          <text class="agreement-link" data-type="privacy" bindtap="openAgreementPage">《隐私政策》</text>
+        </label>
+      </checkbox-group>
+    </view>
     <button class="btn" style="width:100%;" form-type="submit">确认办卡</button>
   </view>
 </form>

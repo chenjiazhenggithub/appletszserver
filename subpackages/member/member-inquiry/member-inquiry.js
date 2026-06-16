@@ -78,9 +78,9 @@ Page({
       if (this.data.RegisterNo !== '') {
         carnumber = this.data.RegisterNo
       }
-      if (carnumber.length < 7) {
+      if (carnumber.length < 6) {
         wx.showModal({
-          content: '车架号不能少于7位',
+          content: '车架号不能少于6位',
           showCancel: false
         })
       } else {

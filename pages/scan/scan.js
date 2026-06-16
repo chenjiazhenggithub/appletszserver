@@ -3,6 +3,13 @@
 let animation = wx.createAnimation({});
 const app = getApp()
 const cwx = require('../../utils/profunc');
+
+function normalizeScanText(value) {
+  return String(value == null ? '' : value)
+    .replace(/^\uFEFF+/, '')
+    .replace(/[\u0000-\u001F\u007F\u200B\u200C\u200D\u2060\uFEFF]/g, '')
+    .trim()
+}
 // 提示音
 // let innerAudioContext = wx.createInnerAudioContext()
 // innerAudioContext.src = '/images/beep.mp3'
@@ -71,7 +78,7 @@ Page({
       this.setData({
         scaned:!0
       },function(){
-        let data = e.detail.result
+        let data = normalizeScanText(e.detail.result)
         wx.login({
          success: function(item) {
           wx.request({
@@ -195,7 +202,7 @@ Page({
       const string = JSON.parse(res)
       const trdata = JSON.parse(string)
       if (trdata && trdata.errcode === 0) {
-        const code = trdata.code_results[0].data
+        const code = normalizeScanText(trdata.code_results[0].data)
         wx.login({
           success: function(item) {
            wx.request({

@@ -1,0 +1,104 @@
+.policy-page {
+  padding: 28rpx;
+  background: linear-gradient(180deg, #eef6fb 0%, #f8fbfd 180rpx, #f7f8fa 100%);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.policy-hero {
+  padding: 18rpx 8rpx 26rpx;
+}
+
+.policy-kicker {
+  font-size: 20rpx;
+  letter-spacing: 4rpx;
+  color: #4b87a8;
+  margin-bottom: 10rpx;
+}
+
+.policy-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #17324a;
+  margin-bottom: 12rpx;
+}
+
+.policy-subtitle {
+  font-size: 24rpx;
+  color: #5d7188;
+  line-height: 1.7;
+}
+
+.policy-meta {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: #8092a6;
+}
+
+.policy-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1rpx solid rgba(75, 135, 168, 0.18);
+  border-radius: 20rpx;
+  box-shadow: 0 12rpx 30rpx rgba(23, 50, 74, 0.06);
+}
+
+.policy-summary-card {
+  padding: 20rpx 24rpx;
+  margin-bottom: 18rpx;
+}
+
+.policy-summary-title {
+  font-size: 24rpx;
+  color: #356788;
+  margin-bottom: 8rpx;
+  font-weight: 600;
+}
+
+.policy-summary-text {
+  display: block;
+  font-size: 25rpx;
+  color: #4f6277;
+  line-height: 1.8;
+}
+
+.policy-section {
+  display: flex;
+  gap: 18rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 12rpx 30rpx rgba(17, 43, 67, 0.05);
+}
+
+.policy-index {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(135deg, #63a3c6, #3c7da1);
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.policy-body {
+  flex: 1;
+}
+
+.policy-heading {
+  font-size: 30rpx;
+  color: #17324a;
+  margin-bottom: 10rpx;
+  font-weight: 600;
+}
+
+.policy-text {
+  display: block;
+  font-size: 26rpx;
+  color: #536779;
+  line-height: 1.85;
+}

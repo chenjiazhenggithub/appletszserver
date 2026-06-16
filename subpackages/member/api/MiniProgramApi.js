@@ -2,9 +2,9 @@ const request = require('../../../utils/request');
 
 const BASE_URL = 'https://szbk.bjcls.cn:7718'; // http://47.95.203.61:7718  //https://szbk.bjcls.cn:7718
 const FORDJOIN_BASE_URL = 'https://szbk.bjcls.cn:5123';
-const DEEPSEEK_DEFAULT_ENDPOINT = 'https://api.deepseek.com/v1/chat/completions';
-const DEEPSEEK_DEFAULT_MODEL = 'deepseek-reasoner';
-const DEEPSEEK_DEFAULT_API_KEY = 'sk-9f6007b160684aa7b20033e9157e9d08';
+const DEEPSEEK_DEFAULT_ENDPOINT = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
+const DEEPSEEK_DEFAULT_MODEL = 'deepseek-v3';
+const DEEPSEEK_DEFAULT_API_KEY = 'sk-04c2193aa7c3476e849acf63b7eaa720';
 
 function toText(value) {
   if (value === null || value === undefined) {
@@ -121,6 +121,48 @@ function clampPrice(value) {
 }
 
 function extractDeepseekMessageText(body) {
+  var bailianChoice =
+    body && body.output && body.output.choices && body.output.choices[0] ? body.output.choices[0] : null;
+  var bailianMessage =
+    bailianChoice && bailianChoice.message && typeof bailianChoice.message === 'object'
+      ? bailianChoice.message
+      : null;
+
+  if (bailianMessage && typeof bailianMessage.content === 'string') {
+    return bailianMessage.content;
+  }
+
+  if (bailianMessage && Array.isArray(bailianMessage.content)) {
+    var bailianJoined = bailianMessage.content
+      .map(function (item) {
+        if (typeof item === 'string') {
+          return item;
+        }
+        if (!item || typeof item !== 'object') {
+          return '';
+        }
+        if (typeof item.text === 'string') {
+          return item.text;
+        }
+        if (typeof item.content === 'string') {
+          return item.content;
+        }
+        return '';
+      })
+      .filter(function (item) {
+        return !!item;
+      })
+      .join('\n');
+
+    if (bailianJoined) {
+      return bailianJoined;
+    }
+  }
+
+  if (body && body.output && typeof body.output.text === 'string') {
+    return body.output.text;
+  }
+
   var choice = body && body.choices && body.choices[0] ? body.choices[0] : {};
   var message = choice && choice.message && typeof choice.message === 'object' ? choice.message : {};
   var content = message.content;
@@ -204,13 +246,13 @@ function callDeepseekChat(params) {
         if (!res || (res.statusCode !== 200 && res.statusCode !== 201)) {
           var statusCode = res && res.statusCode ? String(res.statusCode) : '0';
           var errBody = res && typeof res.data !== 'undefined' ? res.data : '';
-          return reject(new Error('DeepSeek请求失败(' + statusCode + ') ' + toText(typeof errBody === 'string' ? errBody : JSON.stringify(errBody))));
+          return reject(new Error('百炼请求失败(' + statusCode + ') ' + toText(typeof errBody === 'string' ? errBody : JSON.stringify(errBody))));
         }
 
         resolve(res.data || {});
       },
       fail: function (err) {
-        reject(new Error(request.extractApiErrorMessage(err, 'DeepSeek请求失败')));
+        reject(new Error(request.extractApiErrorMessage(err, '百炼请求失败')));
       }
     });
   });
@@ -366,9 +408,9 @@ function uploadImportImage(params) {
 function estimateUsedCarPurchasePrice(params) {
   var data = params || {};
   var profile = data.profile && typeof data.profile === 'object' ? data.profile : {};
-  var apiKey = toText(data.apiKey) || DEEPSEEK_DEFAULT_API_KEY;
-  var endpoint = toText(data.endpoint) || DEEPSEEK_DEFAULT_ENDPOINT;
-  var model = toText(data.model) || DEEPSEEK_DEFAULT_MODEL;
+  var apiKey = DEEPSEEK_DEFAULT_API_KEY;
+  var endpoint = DEEPSEEK_DEFAULT_ENDPOINT;
+  var model = DEEPSEEK_DEFAULT_MODEL;
 
   if (!apiKey) {
     return Promise.reject(new Error('未配置DeepSeek API Key'));

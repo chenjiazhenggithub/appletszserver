@@ -16,7 +16,9 @@
         "history/history",
         "card-center/card-center",
         "verification-details/verification-details",
-        "password/password"
+        "password/password",
+        "policy/user-agreement",
+        "policy/privacy-policy"
       ]
     },
     {

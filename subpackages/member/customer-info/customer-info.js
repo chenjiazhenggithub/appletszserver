@@ -40,6 +40,9 @@ Page({
     carouselTitle: '商业险凭证',
     carouselItems: [],
     carouselImages: [],
+    carouselScale: 1,
+    carouselTranslateX: 0,
+    carouselTranslateY: 0,
     usedCarEstimateLoading: false,
     coupons: [],
     followRecords: [],
@@ -52,6 +55,13 @@ Page({
     });
   },
   noop: function () {},
+  getCarouselResetState: function () {
+    return {
+      carouselScale: 1,
+      carouselTranslateX: 0,
+      carouselTranslateY: 0
+    };
+  },
   onChangedropdown: function (e) {
     this.setData({
       SfCardId: String(e.detail || '1')
@@ -109,9 +119,9 @@ Page({
       }
     } else {
       searchValue = inputValue;
-      if (searchValue.length < 7) {
+      if (searchValue.length < 6) {
         wx.showModal({
-          content: '车架号不能少于7位',
+          content: '车架号不能少于6位',
           showCancel: false
         });
         return;
@@ -863,11 +873,21 @@ Page({
     this.setData({
       showCarousel: true,
       carouselIndex: 0,
-      carouselTitle: items.length ? items[0].title : '保险凭证'
+      carouselTitle: items.length ? items[0].title : '保险凭证',
+      carouselScale: 1,
+      carouselTranslateX: 0,
+      carouselTranslateY: 0
     });
   },
   closeCarousel: function () {
-    this.setData({ showCarousel: false });
+    this.setData(
+      Object.assign(
+        {
+          showCarousel: false
+        },
+        this.getCarouselResetState()
+      )
+    );
   },
   previewInsuranceImage: function (e) {
     var urls = e.currentTarget.dataset.urls || [];
@@ -890,7 +910,10 @@ Page({
     var items = this.data.carouselItems || [];
     this.setData({
       carouselIndex: idx,
-      carouselTitle: items[idx] ? items[idx].title : '保险凭证'
+      carouselTitle: items[idx] ? items[idx].title : '保险凭证',
+      carouselScale: 1,
+      carouselTranslateX: 0,
+      carouselTranslateY: 0
     });
   },
   prevImage: function () {
@@ -901,7 +924,10 @@ Page({
     var items = this.data.carouselItems || [];
     this.setData({
       carouselIndex: idx,
-      carouselTitle: items[idx] ? items[idx].title : '保险凭证'
+      carouselTitle: items[idx] ? items[idx].title : '保险凭证',
+      carouselScale: 1,
+      carouselTranslateX: 0,
+      carouselTranslateY: 0
     });
   },
   openInviteModal: function () {

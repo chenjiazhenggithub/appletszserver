@@ -41,7 +41,8 @@ Page({
     scrollTop: 0, // 记录当前滚动位置
     pagePaddingBottom: 0,
     isKeyboardShown: false,
-    activeScrollTarget: ''
+    activeScrollTarget: '',
+    agreePolicy: false
   },
 
   /**
@@ -535,6 +536,14 @@ Page({
     })
   },
   save: function (e) {
+    if (!this.data.agreePolicy) {
+      wx.showModal({
+        content: '请先阅读并同意《用户服务协议》和《隐私政策》',
+        showCancel: false
+      })
+      return false
+    }
+
     const params = e.detail.value
     //验证表单
     if (!this.WxValidate.checkForm(params)) {
@@ -580,6 +589,29 @@ Page({
         })
       }
     })
+  },
+  onAgreementChange: function (e) {
+    var selected = e && e.detail && Array.isArray(e.detail.value) ? e.detail.value : []
+    this.setData({
+      agreePolicy: selected.indexOf('agree') !== -1
+    })
+  },
+  openAgreementPage: function (e) {
+    var type = e && e.currentTarget && e.currentTarget.dataset ? e.currentTarget.dataset.type : ''
+    var url = ''
+
+    if (type === 'user') {
+      url = '/subpackages/member/policy/user-agreement'
+    }
+    if (type === 'privacy') {
+      url = '/subpackages/member/policy/privacy-policy'
+    }
+
+    if (!url) {
+      return
+    }
+
+    wx.navigateTo({ url: url })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -1,0 +1,53 @@
+<view class="policy-page policy-page-agreement">
+  <view class="policy-hero">
+    <view class="policy-kicker">MEMBER SERVICE</view>
+    <view class="policy-title">用户服务协议</view>
+    <view class="policy-subtitle">请在办理会员及提交个人信息前完整阅读本协议内容。</view>
+    <view class="policy-meta">更新日期：2026-06-15</view>
+  </view>
+
+  <view class="policy-card policy-summary-card">
+    <view class="policy-summary-title">适用范围</view>
+    <text class="policy-summary-text">本协议适用于本小程序内的会员办理、车辆档案查询、服务邀约、优惠券查询及相关售后业务。</text>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">01</view>
+    <view class="policy-body">
+      <view class="policy-heading">服务说明</view>
+      <text class="policy-text">本小程序用于车辆会员服务管理，包括会员办理、车辆档案查询、优惠券查询、邀约记录管理等功能。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">02</view>
+    <view class="policy-body">
+      <view class="policy-heading">用户义务</view>
+      <text class="policy-text">用户应确保提交的信息真实、准确、合法，不得冒用他人身份信息办理业务，不得利用本服务从事违法违规活动。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">03</view>
+    <view class="policy-body">
+      <view class="policy-heading">信息使用范围</view>
+      <text class="policy-text">用户提交的姓名、手机号、车架号、车牌号、身份证号等信息，仅用于会员办理、客户联系、售后服务及业务风控，不用于与本服务无关的用途。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">04</view>
+    <view class="policy-body">
+      <view class="policy-heading">服务中断与免责</view>
+      <text class="policy-text">因网络故障、系统维护、第三方服务异常或其他不可抗力导致服务中断的，我们将在合理范围内尽力恢复服务，但不对由此造成的间接损失承担责任。</text>
+    </view>
+  </view>
+
+  <view class="policy-section">
+    <view class="policy-index">05</view>
+    <view class="policy-body">
+      <view class="policy-heading">协议变更</view>
+      <text class="policy-text">如协议内容发生调整，将通过小程序页面更新。更新后的协议自发布之日起生效，继续使用本服务即视为同意该等变更。</text>
+    </view>
+  </view>
+</view>

@@ -37,62 +37,77 @@
       <view class="info-row">
         <text class="info-label">车牌号</text>
         <view class="info-value plate-wrapper">
-          <text>{{memberProfile.licensePlate ? memberProfile.licensePlate : '--'}}</text>
-          <text wx:if="{{isMember}}" class="badge-gold inline-member-badge">{{memberProfile.memberLevel ? memberProfile.memberLevel : '--'}}</text>
+          <text selectable="{{true}}">{{memberProfile.licensePlate ? memberProfile.licensePlate : '--'}}</text>
+          <text wx:if="{{isMember}}" class="badge-gold inline-member-badge" selectable="{{true}}">{{memberProfile.memberLevel ? memberProfile.memberLevel : '--'}}</text>
           <button wx:else class="btn-apply-card inline-apply-btn" bindtap="handleApplyCard">办卡</button>
         </view>
       </view>
       <view class="info-row">
         <text class="info-label">车架号</text>
         <view class="info-value vin-wrapper">
-          <text class="vin-number">{{memberProfile.vin ? memberProfile.vin : '--'}}</text>
-          <text class="latest-mileage">{{memberProfile.latestMileage ? ('车机最新里程' + memberProfile.latestMileage) : '--'}}</text>
+          <text class="vin-number" selectable="{{true}}">{{memberProfile.vin ? memberProfile.vin : '--'}}</text>
+          <text class="latest-mileage" selectable="{{true}}">{{memberProfile.latestMileage ? ('车机最新里程' + memberProfile.latestMileage) : '--'}}</text>
         </view>
       </view>
-      <view class="info-row"><text class="info-label">客户姓名</text><text class="info-value">{{memberProfile.customerName ? memberProfile.customerName : '--'}}</text></view>
+      <view class="info-row">
+        <text class="info-label">客户姓名</text>
+        <text
+          class="info-value copyable-value"
+          selectable="{{true}}"
+        >{{memberProfile.customerName ? memberProfile.customerName : '--'}}</text>
+      </view>
 
       <view class="info-row phone-row">
         <text class="info-label">手机号</text>
         <view class="info-value phone-wrapper">
-          <text class="phone-number">{{memberProfile.mobile ? memberProfile.mobile : '--'}}</text>
+          <text
+            class="phone-number copyable-value"
+            selectable="{{true}}"
+          >{{memberProfile.mobile ? memberProfile.mobile : '--'}}</text>
           <button class="btn-invite" bindtap="openInviteModal">邀约</button>
         </view>
       </view>
 
-      <view class="info-row"><text class="info-label">购车日期</text><text class="info-value">{{memberProfile.purchaseDate ? memberProfile.purchaseDate : '--'}}</text></view>
+      <view class="info-row"><text class="info-label">购车日期</text><text class="info-value" selectable="{{true}}">{{memberProfile.purchaseDate ? memberProfile.purchaseDate : '--'}}</text></view>
 
       <view class="info-row">
         <text class="info-label">商业险到期</text>
         <view class="info-value">
           <view class="expiry-wrapper">
-            <text class="days-badge">{{memberProfile.commercialInsuranceRemainingText ? memberProfile.commercialInsuranceRemainingText : '--'}}</text>
+            <text class="days-badge" selectable="{{true}}">{{memberProfile.commercialInsuranceRemainingText ? memberProfile.commercialInsuranceRemainingText : '--'}}</text>
             <button class="btn-view-image {{!carouselImages.length ? 'btn-view-image-disabled' : ''}}" disabled="{{!carouselImages.length}}" bindtap="openCarousel">查看图片</button>
           </view>
           <view class="insurance-detail">
             <view class="insurance-item" wx:for="{{fixedInsuranceItems}}" wx:key="name">
-              <text class="insurance-name">{{item.name}}</text>
-              <text class="insurance-amount">{{item.amountText}}</text>
+              <text class="insurance-name" selectable="{{true}}">{{item.name}}</text>
+              <text class="insurance-amount" selectable="{{true}}">{{item.amountText}}</text>
             </view>
           </view>
         </view>
       </view>
 
-      <view class="info-row"><text class="info-label">车系</text><text class="info-value strong">{{memberProfile.vehicleSeries ? memberProfile.vehicleSeries : '--'}}</text></view>
+      <view class="info-row">
+        <text class="info-label">车系</text>
+        <text
+          class="info-value strong copyable-value"
+          selectable="{{true}}"
+        >{{memberProfile.vehicleSeries ? memberProfile.vehicleSeries : '--'}}</text>
+      </view>
       <view class="info-row">
         <text class="info-label">车龄/收购价</text>
         <view class="info-value used-car-price-wrap">
-          <text>{{memberProfile.vehicleAgeText ? memberProfile.vehicleAgeText : '--'}} · </text>
+          <text selectable="{{true}}">{{memberProfile.vehicleAgeText ? memberProfile.vehicleAgeText : '--'}} · </text>
           <view wx:if="{{usedCarEstimateLoading}}" class="price-loading-inline">
             <view class="price-loading-dot"></view>
             <text class="price-loading-text">二手车收购价估算中...</text>
           </view>
-          <text wx:else class="highlight-price">二手车收购价 {{memberProfile.usedCarPurchasePrice !== null && memberProfile.usedCarPurchasePrice !== undefined ? memberProfile.usedCarPurchasePrice : '--'}} 元</text>
+          <text wx:else class="highlight-price" selectable="{{true}}">二手车收购价 {{memberProfile.usedCarPurchasePrice !== null && memberProfile.usedCarPurchasePrice !== undefined ? memberProfile.usedCarPurchasePrice : '--'}} 元</text>
         </view>
       </view>
-      <view class="info-row"><text class="info-label">权益</text><text class="info-value tag-blue">{{memberProfile.memberRightsSummary ? memberProfile.memberRightsSummary : '--'}}</text></view>
-      <view class="info-row"><text class="info-label">末次进店信息</text><view class="info-value"><text class="visit-chip">{{memberProfile.lastVisitDate ? memberProfile.lastVisitDate : '--'}} · {{memberProfile.lastVisitServiceType ? memberProfile.lastVisitServiceType : '--'}}</text><text class="visit-chip">{{memberProfile.lastVisitMileage ? memberProfile.lastVisitMileage : '--'}}</text></view></view>
-      <view class="info-row"><text class="info-label">客户类型</text><text class="info-value tag-blue">{{memberProfile.customerType ? memberProfile.customerType : '--'}}</text></view>
-      <view class="info-row no-border"><text class="info-label">投诉状态</text><text class="info-value tag-green">{{memberProfile.complaintStatus ? memberProfile.complaintStatus : '--'}}</text></view>
+      <view class="info-row"><text class="info-label">权益</text><text class="info-value tag-blue" selectable="{{true}}">{{memberProfile.memberRightsSummary ? memberProfile.memberRightsSummary : '--'}}</text></view>
+      <view class="info-row"><text class="info-label">末次进店信息</text><view class="info-value"><text class="visit-chip" selectable="{{true}}">{{memberProfile.lastVisitDate ? memberProfile.lastVisitDate : '--'}} · {{memberProfile.lastVisitServiceType ? memberProfile.lastVisitServiceType : '--'}}</text><text class="visit-chip" selectable="{{true}}">{{memberProfile.lastVisitMileage ? memberProfile.lastVisitMileage : '--'}}</text></view></view>
+      <view class="info-row"><text class="info-label">客户类型</text><text class="info-value tag-blue" selectable="{{true}}">{{memberProfile.customerType ? memberProfile.customerType : '--'}}</text></view>
+      <view class="info-row no-border"><text class="info-label">投诉状态</text><text class="info-value tag-green" selectable="{{true}}">{{memberProfile.complaintStatus ? memberProfile.complaintStatus : '--'}}</text></view>
     </view>
   </view>
 
@@ -100,9 +115,9 @@
     <view class="panel-header"><text class="panel-title">优惠券</text><text class="badge-gold">{{coupons.length}}张可用</text></view>
     <view class="card-content">
       <view wx:for="{{coupons}}" wx:key="name" class="coupon-card">
-        <view class="coupon-title">{{item.title}}</view>
-        <view class="coupon-desc">{{item.desc}}</view>
-        <view class="coupon-date">{{item.date}}</view>
+        <text class="coupon-title" selectable="{{true}}">{{item.title}}</text>
+        <text class="coupon-desc" selectable="{{true}}">{{item.desc}}</text>
+        <text class="coupon-date" selectable="{{true}}">{{item.date}}</text>
       </view>
     </view>
   </view>
@@ -112,10 +127,10 @@
     <view class="card-content">
       <view class="follow-list">
         <view wx:for="{{followRecords}}" wx:key="id" class="follow-item">
-          <view class="follow-meta"><text class="follow-date">{{item.date}}</text><text>{{item.method}}</text></view>
-          <view class="follow-content">{{item.content}}</view>
+          <view class="follow-meta"><text class="follow-date" selectable="{{true}}">{{item.date}}</text><text selectable="{{true}}">{{item.method}}</text></view>
+          <text class="follow-content" selectable="{{true}}">{{item.content}}</text>
           <image wx:if="{{item.image}}" class="record-image" src="{{item.image}}" mode="aspectFit"></image>
-          <view><text class="staff-chip">{{item.staff}}</text></view>
+          <view><text class="staff-chip" selectable="{{true}}">{{item.staff}}</text></view>
         </view>
       </view>
       <view class="tiny-note">邀约记录会自动添加至此</view>
@@ -129,9 +144,9 @@
         <text class="complaint-status">无投诉记录</text>
       </view>
       <view wx:for="{{complaints}}" wx:key="index" class="complaint-card {{index === complaints.length - 1 ? 'no-border' : ''}}">
-        <text class="complaint-status">{{item['问题反馈类型'] || '--'}}</text>
-        <view class="complaint-title">{{item['记录时间'] || '投诉记录'}}</view>
-        <view class="complaint-detail">{{item['反馈内容'] || '--'}}</view>
+        <text class="complaint-status" selectable="{{true}}">{{item['问题反馈类型'] || '--'}}</text>
+        <text class="complaint-title" selectable="{{true}}">{{item['记录时间'] || '投诉记录'}}</text>
+        <text class="complaint-detail" selectable="{{true}}">{{item['反馈内容'] || '--'}}</text>
       </view>
     </view>
   </view>
@@ -178,9 +193,9 @@
           bindtap="onSelectVehicle"
         >
           <view style="line-height: 20px;margin-left: 15px;">
-            <view class="vehicle-main-text">{{item.licensePlate || '未识别车牌号'}}</view>
-            <view class="vehicle-sub-text">车架号：{{item.vin || '未识别'}}</view>
-            <view class="vehicle-sub-text">客户姓名：{{item.customerName || '未知客户'}}</view>
+            <text class="vehicle-main-text" selectable="{{true}}">{{item.licensePlate || '未识别车牌号'}}</text>
+            <text class="vehicle-sub-text" selectable="{{true}}">车架号：{{item.vin || '未识别'}}</text>
+            <text class="vehicle-sub-text" selectable="{{true}}">客户姓名：{{item.customerName || '未知客户'}}</text>
           </view>
           <view style="margin-right: 5px;">
             <van-checkbox checked="{{selectedVehicleIndex === index}}" checked-color="#1a6c9e" value="{{selectedVehicleIndex === index}}"></van-checkbox>
@@ -245,14 +260,34 @@
           <text class="nav-arrow-icon">‹</text>
         </view>
         <view class="slider-img">
-          <image wx:if="{{carouselImages.length}}" class="carousel-image" src="{{carouselImages[carouselIndex]}}" mode="aspectFit"></image>
+          <movable-area wx:if="{{carouselImages.length}}" class="carousel-movable-area" scale-area>
+            <movable-view
+              class="carousel-movable-view"
+              direction="all"
+              x="{{carouselTranslateX}}"
+              y="{{carouselTranslateY}}"
+              out-of-bounds="true"
+              scale="true"
+              scale-min="1"
+              scale-max="4"
+              scale-value="{{carouselScale}}"
+            >
+              <image class="carousel-image" src="{{carouselImages[carouselIndex]}}" mode="aspectFit"></image>
+            </movable-view>
+          </movable-area>
           <view wx:else class="insurance-empty-text">暂无图片</view>
         </view>
         <view class="nav-arrow nav-right" bindtap="nextImage">
           <text class="nav-arrow-icon">›</text>
         </view>
       </view>
-      <view class="slide-indicator">{{carouselImages.length ? carouselIndex + 1 : 0}} / {{carouselImages.length}}</view>
+      <view class="slide-indicator">
+        <movable-area class="slide-indicator-area" scale-area>
+          <movable-view class="slide-indicator-view" direction="all" scale="true" scale-min="1" scale-max="4" scale-value="1" out-of-bounds="true">
+            <text class="slide-indicator-text">{{carouselImages.length ? carouselIndex + 1 : 0}} / {{carouselImages.length}}</text>
+          </movable-view>
+        </movable-area>
+      </view>
     </view>
   </view>
 </view>
