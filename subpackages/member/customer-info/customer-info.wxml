@@ -46,7 +46,7 @@
         <text class="info-label">车架号</text>
         <view class="info-value vin-wrapper">
           <text class="vin-number" selectable="{{true}}">{{memberProfile.vin ? memberProfile.vin : '--'}}</text>
-          <text class="latest-mileage" selectable="{{true}}">{{memberProfile.latestMileage ? ('车机最新里程' + memberProfile.latestMileage) : '--'}}</text>
+          <text class="latest-mileage" selectable="{{true}}">车机最新里程{{memberProfile.latestMileage}}</text>
         </view>
       </view>
       <view class="info-row">
@@ -75,6 +75,7 @@
         <view class="info-value">
           <view class="expiry-wrapper">
             <text class="days-badge" selectable="{{true}}">{{memberProfile.commercialInsuranceRemainingText ? memberProfile.commercialInsuranceRemainingText : '--'}}</text>
+            <text wx:if="{{memberProfile.insuranceCompany}}" class="insurance-company-tag">{{memberProfile.insuranceCompany}}</text>
             <button class="btn-view-image {{!carouselImages.length ? 'btn-view-image-disabled' : ''}}" disabled="{{!carouselImages.length}}" bindtap="openCarousel">查看图片</button>
           </view>
           <view class="insurance-detail">

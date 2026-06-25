@@ -45,10 +45,15 @@
     "showES6CompileOption": false,
     "useCompilerPlugins": false,
     "useStaticServer": true,
-    "lazyloadPlaceholderEnable": false
+    "lazyloadPlaceholderEnable": false,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.13.0",
+  "libVersion": "3.16.2",
   "appid": "wx5122335d2a4b4aaa",
   "projectname": "newszgroupapple",
   "simulatorType": "wechat",

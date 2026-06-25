@@ -345,6 +345,17 @@
   margin-right: auto;
 }
 
+.insurance-company-tag {
+  display: inline-block;
+  max-width: 110rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 22rpx;
+  color: #1c6e9e;
+  margin-right: 12rpx;
+}
+
 .btn-view-image {
   margin: 0 0 0 auto !important;
   display: inline-flex;

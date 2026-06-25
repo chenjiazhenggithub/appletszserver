@@ -557,7 +557,7 @@ Page({
         }
 
         this.setData({
-          memberProfile: profile,
+          memberProfile: Object.assign({}, profile, { latestMileage: '' }),
           fixedInsuranceItems: fixedInsuranceItems,
           hasMemberProfile: !!(profile && Object.keys(profile).length),
           isMember: profile.isMember === true,
@@ -657,6 +657,11 @@ Page({
         var latestProfile = this.data.memberProfile || {};
         if (latestProfile.vehicleId !== vehicleId) {
           return Promise.reject(new Error('车辆已切换'));
+        }
+
+        if (fordLatestMileage) {
+          this.setData({ 'memberProfile.latestMileage': fordLatestMileage });
+          latestProfile = Object.assign({}, latestProfile, { latestMileage: fordLatestMileage });
         }
 
         var profileForEstimate = Object.assign({}, latestProfile, {
