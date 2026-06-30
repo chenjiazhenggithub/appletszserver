@@ -1033,6 +1033,23 @@
   border-radius: 28px;
 }
 
+.carousel-pdf-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-pdf-fallback-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+}
+
+.carousel-pdf-fallback-text {
+  color: #1a6c9e;
+  font-size: 28rpx;
+}
+
 .nav-arrow {
   position: absolute;
   top: 50%;

@@ -18,7 +18,8 @@
         "verification-details/verification-details",
         "password/password",
         "policy/user-agreement",
-        "policy/privacy-policy"
+        "policy/privacy-policy",
+        "pdf-viewer/pdf-viewer"
       ]
     },
     {

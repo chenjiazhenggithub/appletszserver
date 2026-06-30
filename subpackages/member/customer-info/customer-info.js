@@ -43,6 +43,7 @@ Page({
     carouselScale: 1,
     carouselTranslateX: 0,
     carouselTranslateY: 0,
+    carouselImageLoadFailed: false,
     usedCarEstimateLoading: false,
     coupons: [],
     followRecords: [],
@@ -59,7 +60,8 @@ Page({
     return {
       carouselScale: 1,
       carouselTranslateX: 0,
-      carouselTranslateY: 0
+      carouselTranslateY: 0,
+      carouselImageLoadFailed: false
     };
   },
   onChangedropdown: function (e) {
@@ -918,7 +920,8 @@ Page({
       carouselTitle: items[idx] ? items[idx].title : '保险凭证',
       carouselScale: 1,
       carouselTranslateX: 0,
-      carouselTranslateY: 0
+      carouselTranslateY: 0,
+      carouselImageLoadFailed: false
     });
   },
   prevImage: function () {
@@ -932,7 +935,35 @@ Page({
       carouselTitle: items[idx] ? items[idx].title : '保险凭证',
       carouselScale: 1,
       carouselTranslateX: 0,
-      carouselTranslateY: 0
+      carouselTranslateY: 0,
+      carouselImageLoadFailed: false
+    });
+  },
+  onCarouselImageError: function () {
+    this.setData({ carouselImageLoadFailed: true });
+  },
+  onCarouselImageLoad: function () {
+    this.setData({ carouselImageLoadFailed: false });
+  },
+  openCarouselPdf: function () {
+    var url = this.data.carouselImages[this.data.carouselIndex];
+    if (!url) return;
+    wx.showLoading({ title: '加载中' });
+    wx.downloadFile({
+      url: url,
+      success: function (res) {
+        wx.hideLoading();
+        wx.openDocument({
+          filePath: res.tempFilePath,
+          fail: function () {
+            wx.showToast({ title: '无法打开文件', icon: 'none' });
+          }
+        });
+      },
+      fail: function () {
+        wx.hideLoading();
+        wx.showToast({ title: '文件加载失败', icon: 'none' });
+      }
     });
   },
   openInviteModal: function () {

@@ -261,7 +261,7 @@
           <text class="nav-arrow-icon">‹</text>
         </view>
         <view class="slider-img">
-          <movable-area wx:if="{{carouselImages.length}}" class="carousel-movable-area" scale-area>
+          <movable-area wx:if="{{carouselImages.length && !carouselImageLoadFailed}}" class="carousel-movable-area" scale-area>
             <movable-view
               class="carousel-movable-view"
               direction="all"
@@ -273,9 +273,13 @@
               scale-max="4"
               scale-value="{{carouselScale}}"
             >
-              <image class="carousel-image" src="{{carouselImages[carouselIndex]}}" mode="aspectFit"></image>
+              <image class="carousel-image" src="{{carouselImages[carouselIndex]}}" mode="aspectFit" binderror="onCarouselImageError" bindload="onCarouselImageLoad"></image>
             </movable-view>
           </movable-area>
+          <view wx:elif="{{carouselImages.length && carouselImageLoadFailed}}" class="carousel-image carousel-pdf-fallback" bindtap="openCarouselPdf">
+            <text class="carousel-pdf-fallback-icon">📄</text>
+            <text class="carousel-pdf-fallback-text">点击查看文件</text>
+          </view>
           <view wx:else class="insurance-empty-text">暂无图片</view>
         </view>
         <view class="nav-arrow nav-right" bindtap="nextImage">
