@@ -60,44 +60,51 @@ Page({
   getList: function(e) {
     const that = this
     wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/SearchHxHistory',
-      method: 'GET',
+      url: 'https://szg.bjcls.cn:9330/api/SZGroupReport/GroupHxDetail',
+      method: 'POST',
       header: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        'Content-Type': 'application/json'
       },
       data: {
-        'classname': '',
-        'userId': app.globalData.UserId,
         'startDate': this.data.startDate,
         'endDate': this.data.endDate,
-        'carNo': this.data.carNo
+        'typeId': 52,
+        'storeId': '',
+        'department': '',
+        'ServiceGroupId': 0,
+        'orderNumber': this.data.carNo,
+        'GroupId': app.globalData.ServiceGroupId,
+        'SettlementStatus': null,
+        'favorableIds': [],
+        'userId': app.globalData.UserId,
+        'pageIndex': 1,
+        'pageSize': 200
       },
       success: function(res) {
-        if (res.data.result_code === '0') {
-          if (res.data.result_data && res.data.result_data.length > 0) {
-            that.setData({
-              'historydata': res.data.result_data
+        if (res.statusCode === 200 && res.data && res.data.data) {
+          var rows = res.data.data.rows || []
+          if (rows.length > 0) {
+            var historydata = rows.map(function(item) {
+              return {
+                scanstr: item['核销项目'] || '',
+                cname: item['客户姓名'] || '',
+                CarNo: item['使用车牌号'] || '',
+                UseBrand: item['使用品牌'] || '',
+                bICouponTypeName: item['核销日期'] || ''
+              }
             })
+            that.setData({ 'historydata': historydata })
           } else {
-            wx.showModal({
-              content: '暂无数据',
-              showCancel: false
-            })
+            wx.showModal({ content: '暂无数据', showCancel: false })
             that.cleardata()
           }
         } else {
-          wx.showModal({
-            content: res.data.result_msg,
-            showCancel: false
-          })
+          wx.showModal({ content: '请求失败', showCancel: false })
           that.cleardata()
         }
       },
-      fail: function(erroe){
-        wx.showModal({
-          content: res.data.result_msg,
-          showCancel: false
-        })
+      fail: function(error) {
+        wx.showModal({ content: '网络请求失败', showCancel: false })
       }
     })
   },
