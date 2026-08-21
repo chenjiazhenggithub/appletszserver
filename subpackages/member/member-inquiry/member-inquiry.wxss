@@ -111,6 +111,25 @@
   left: 25%;
   width: 75%;
 }
+.date-row {
+  display: flex;
+  align-items: center;
+  margin: 8px 15px 0 15px;
+}
+.date-text {
+  flex: 1;
+  text-align: center;
+  color: #cccccc;
+  font-size: 12px;
+}
+.qrcode-icon-box {
+  padding: 2px;
+}
+.qrcode-icon {
+  width: 36rpx;
+  height: 36rpx;
+  display: block;
+}
 .listbox {
   width: 312.5px;
   height: 67.5px;

@@ -252,6 +252,30 @@ Page({
   onClose() {
     this.setData({ show: false });
   },
+  tourl: function(e) {
+    const item = this.data.diyongquanData[e.currentTarget.dataset.number]
+    console.log('优惠项目行数据：', item)
+    // VehicleDataSeachByID 返回的字段名与待核销列表接口不一致，做兼容映射
+    const newdata = {
+      ...item,
+      Id: item.Id || 0,
+      CardDetailId: item.CardDetailId || item.CardIdDetail || item.CardId_Detail || item.cardid_detail || item.cardidDetail || ''
+    }
+    if (!newdata.CardDetailId) {
+      wx.showModal({
+        content: '该优惠项目缺少券明细标识，无法生成二维码',
+        showCancel: false
+      })
+      return
+    }
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url,
+      success: function(data) {
+        // 通过eventChannel向被打开页面传送数据
+        data.eventChannel.emit('acceptDataFromOpenerPage', { data1: newdata, Page: '待核销页面' })
+      }
+    })
+  },
   // copy (e) {
   //   const that = this
   //   wx.setClipboardData({

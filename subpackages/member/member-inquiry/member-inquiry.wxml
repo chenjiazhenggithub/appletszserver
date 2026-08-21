@@ -72,7 +72,12 @@
             <view class="imgbox-right">
               <view class="newclass item-title-width {{item.CanUseFlag === '有效' ? 'text-valid' : 'text-invalid'}}">{{item.favorableName}}</view>
               <view style="width: 86%;height: 1px;border-bottom: 1px dashed #ebebeb;margin: 0px auto 0 auto;"></view>
-              <view style="color: #cccccc;font-size: 12px;float: right;margin: 8px 15px 0 0;">{{item.Startdate || '无期限'}} - {{item.enddate || '无期限'}}</view>
+              <view class="date-row">
+                <view class="date-text">{{item.Startdate || '无期限'}} - {{item.enddate || '无期限'}}</view>
+                <view wx:if="{{item.AllowStaffViewVerificationCode == 1}}" bind:tap="tourl" data-url="/pages/qrcode/qrcode" data-number="{{index}}" class="qrcode-icon-box">
+                  <image class="qrcode-icon" src="/pages/index/images/qrcode.png" mode="cover"/>
+                </view>
+              </view>
             </view>
           </view>
           <view class="imgbox" wx:for="{{chuzhiData}}" wx:key="index">
