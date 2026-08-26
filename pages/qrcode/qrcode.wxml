@@ -18,9 +18,10 @@
           <p class="card-num">{{data.CouponNumber}}</p>
         </view>
         <view class="codebox">
-          <image class="codeborder" src="../index/images/codeborder.png">
-            <canvas style="height: 250rpx;width: 250rpx;display: block;" class="card-code" canvas-id="qrTarget"></canvas>
-          </image>
+          <view class="codeborder-wrap">
+            <image class="codeborder" src="../index/images/codeborder.png"/>
+            <canvas style="height: {{qrSize}}px;width: {{qrSize}}px;" class="card-code" canvas-id="qrTarget"></canvas>
+          </view>
         </view>
         <view style="text-align: center;">
           <p style="margin-bottom: 0.5rem;">{{data.FavorableName}}</p>

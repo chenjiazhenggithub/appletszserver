@@ -10,10 +10,16 @@ Page({
     cardidDetail: '',
     couponPresentLogId: null,
     isshow: false,
-    fold: false
+    fold: false,
+    qrSize: 125
   },
   onLoad: function () {
     let that = this;
+    // 边框 345rpx，两侧各留 20rpx 内边距，二维码填满四角内区域
+    const windowWidth = wx.getSystemInfoSync().windowWidth
+    this.setData({
+      qrSize: Math.floor(windowWidth * 305 / 750)
+    })
     let eventChannel = this.getOpenerEventChannel();
     eventChannel.on('acceptDataFromOpenerPage', function (data) {
       if (data.Page === '二维码图标') {
@@ -58,10 +64,11 @@ Page({
             if (carddata.IsPresented === true && carddata.InvalidMin !== 0) {
               time = carddata.InvalidMin
             }
-            if (carddata.EndDate !== '无期限'){
-              const diffdata = moment().format('YYYY-MM-DD')
-              const diffdata1 = moment(carddata.EndDate).format('YYYY-MM-DD')
-              if (moment(diffdata).isBefore(diffdata1) !== true) {
+            // EndDate 为空或“无期限”视为永久有效，不盖章；仅到期日早于今天才显示已过期
+            if (carddata.EndDate && carddata.EndDate !== '无期限') {
+              const today = moment().format('YYYY-MM-DD')
+              const enddate = moment(carddata.EndDate).format('YYYY-MM-DD')
+              if (moment(enddate).isBefore(today)) {
                 that.setData({
                   'isshow': true
                 })
@@ -70,8 +77,8 @@ Page({
             const codecontent = carddata.CouponNumber + '***'
             if (codecontent !== "该优惠券 已失效***") {
               qrCode({
-                width: 139, // 图片宽度
-                height: 139, // 图片高度
+                width: that.data.qrSize, // 图片宽度，与 canvas 实际像素一致
+                height: that.data.qrSize, // 图片高度，与 canvas 实际像素一致
                 canvasId: 'qrTarget', // <canvas>标签中的canvas-id值
                 text: codecontent, //图片中的内容，根据自己的需求进行设置设置
               })
