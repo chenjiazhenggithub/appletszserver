@@ -1,4 +1,5 @@
 const app = getApp()
+const request = require('../../../utils/request')
 Page({
   data: {
     number: '',
@@ -29,8 +30,8 @@ Page({
       'data': []
     })
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetCouponPresentHistory',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/GetCouponPresentHistory',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

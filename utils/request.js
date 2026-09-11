@@ -1,11 +1,133 @@
 // request.js
 // 简单封装 wx.request，检测失败信息或响应中的登录失效标志，尝试 wx.login 并重试一次（best-effort）
 
+// ==================== JWT Token 认证层 ====================
+// 仅对该域名的接口启用 JWT 认证（其他域名如 szbk.bjcls.cn 不受影响）
+const AUTH_BASE_URL = 'http://localhost:44705'
+const TOKEN_STORAGE_KEY = 'auth_token'
+// 401 时跳转的登录页
+const LOGIN_PAGE_ROUTE = 'pages/scan/scan'
+
+function isAuthUrl(url) {
+  return typeof url === 'string' && url.indexOf(AUTH_BASE_URL) === 0
+}
+
+function getAuthToken() {
+  try {
+    return wx.getStorageSync(TOKEN_STORAGE_KEY) || ''
+  } catch (e) {
+    return ''
+  }
+}
+
+function setAuthToken(token) {
+  try {
+    wx.setStorageSync(TOKEN_STORAGE_KEY, token)
+  } catch (e) {
+    console.error('setAuthToken failed', e)
+  }
+}
+
+function clearAuthToken() {
+  try {
+    wx.removeStorageSync(TOKEN_STORAGE_KEY)
+  } catch (e) {
+    console.error('clearAuthToken failed', e)
+  }
+}
+
+// 从响应 Header 中按不区分大小写读取 X-Auth-Token（登录签发 / 滑动续签）
+function readTokenFromHeader(header) {
+  if (!header || typeof header !== 'object') return ''
+  for (const key in header) {
+    if (Object.prototype.hasOwnProperty.call(header, key) &&
+        key.toLowerCase() === 'x-auth-token') {
+      return header[key] || ''
+    }
+  }
+  return ''
+}
+
+// 401 统一处理：清除 Token 并跳转登录页。
+// redirecting401 去重：并发多个 401 只触发一次跳转；登录页自身 401 不跳转（防死循环）。
+let redirecting401 = false
+
+function handleUnauthorized() {
+  clearAuthToken()
+  try {
+    const app = getApp()
+    if (app && typeof app.clearLoginState === 'function') {
+      app.clearLoginState()
+    }
+  } catch (e) {
+    // ignore
+  }
+  try {
+    const pages = getCurrentPages()
+    const currentRoute = pages && pages.length ? (pages[pages.length - 1].route || '') : ''
+    if (currentRoute === LOGIN_PAGE_ROUTE) return
+  } catch (e) {
+    // ignore
+  }
+  if (redirecting401) return
+  redirecting401 = true
+  wx.reLaunch({
+    url: '/' + LOGIN_PAGE_ROUTE,
+    complete: () => {
+      setTimeout(() => { redirecting401 = false }, 1000)
+    }
+  })
+}
+
+// 对指定域名的请求：发出前注入 Authorization 头，返回后保存续签 Token、处理 401。
+// opts / origSuccess / origFail 与 wx.request 回调签名一致。
+function applyAuthInterceptor(opts) {
+  const newOpts = Object.assign({}, opts)
+  if (!isAuthUrl(newOpts.url)) return newOpts
+
+  // 请求拦截：本地有 Token 则统一携带（白名单接口带上也会被服务端忽略）；
+  // 原有自定义 Header（thirdsession、state 等）原样保留
+  const token = getAuthToken()
+  if (token) {
+    newOpts.header = Object.assign({}, newOpts.header, {
+      'Authorization': 'Bearer ' + token
+    })
+  }
+
+  // 响应拦截
+  const origSuccess = newOpts.success
+  const origFail = newOpts.fail
+  newOpts.success = function (res) {
+    const refreshed = readTokenFromHeader(res && res.header)
+    if (refreshed) setAuthToken(refreshed)
+    if (res && res.statusCode === 401) {
+      handleUnauthorized()
+      if (typeof origFail === 'function') {
+        origFail({ errMsg: 'request:fail 登录已失效(401)', statusCode: 401 })
+      }
+      return
+    }
+    if (typeof origSuccess === 'function') origSuccess(res)
+  }
+  return newOpts
+}
+
+// wx.request 的直接替代品（签名完全一致），自动完成 Token 注入 / 续签保存 / 401 处理
+function authRequest(opts) {
+  return wx.request(applyAuthInterceptor(opts))
+}
+
+// wx.uploadFile 的直接替代品，同样自动处理 Token
+function authUploadFile(opts) {
+  return wx.uploadFile(applyAuthInterceptor(opts))
+}
+// ==================== JWT Token 认证层 END ====================
+
 function requestWithAuth(opts) {
   return new Promise((resolve, reject) => {
     const doRequest = (attempt = 0) => {
       try {
-        wx.request(Object.assign({}, opts, {
+        authRequest(Object.assign({}, opts, {
           success: res => {
             // 如果后端使用特定字段标识未登录（例如 result_code !== '0' 且 result_code 为某个登录错误），
             // 请根据后端实际返回进行调整。这里做通用处理：如果响应包含 errcode 且非 0，或返回的 msg 标识 INVALID_LOGIN
@@ -127,7 +249,12 @@ function requestApi(opts) {
 module.exports = {
   requestWithAuth,
   requestApi,
-  extractApiErrorMessage
+  extractApiErrorMessage,
+  authRequest,
+  authUploadFile,
+  getAuthToken,
+  setAuthToken,
+  clearAuthToken
 }
 
 // 提供 uploadFile 的安全封装，行为与 requestWithAuth 类似：在遇到登录失效时尝试 wx.login 并重试一次
@@ -135,7 +262,7 @@ function safeUploadFile(opts) {
   return new Promise((resolve, reject) => {
     const doUpload = (attempt = 0) => {
       try {
-        wx.uploadFile(Object.assign({}, opts, {
+        authUploadFile(Object.assign({}, opts, {
           success: res => {
             try {
               const body = res.data

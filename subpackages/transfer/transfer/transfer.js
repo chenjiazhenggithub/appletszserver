@@ -1,4 +1,5 @@
 const app = getApp()
+const request = require('../../../utils/request')
 // 防抖函数
 function debounce(fn, delay) {
   let timeout = null;
@@ -56,8 +57,8 @@ Page({
   },
   getList: function (e) {
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetCouponPresentLog',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/GetCouponPresentLog',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -97,8 +98,8 @@ Page({
   },
   getbalance: function () {
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetCardFavByCardiddetail',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/GetCardFavByCardiddetail',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -159,8 +160,8 @@ Page({
         if (!res.confirm) {
           return
         }
-        wx.request({
-          url: 'https://applet.myszgroup.cn:7779/api/UserPage/DeleteCouponPresent',
+        request.authRequest({
+          url: 'http://localhost:44705/api/UserPage/DeleteCouponPresent',
           method: 'GET',
           header: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -212,8 +213,8 @@ Page({
   save: debounce(function () {
     this.data.buttonloading = true
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/PresentRequired',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/PresentRequired',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -277,8 +278,8 @@ Page({
   Commit: function () {
     this.data.buttonloading = true
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/CommitUsedInfo',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/CommitUsedInfo',
       method: 'POST',
       header: {
         'content-type': 'application/json', // 设置请求的 header

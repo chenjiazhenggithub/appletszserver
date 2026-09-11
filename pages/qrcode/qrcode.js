@@ -1,6 +1,7 @@
 const app = getApp()
 const moment = require('moment')
 const qrCode = require('../../utils/weapp.qrcode.min');
+const request = require('../../utils/request');
 
 Page({
   data: {
@@ -44,8 +45,8 @@ Page({
   },
   getList: function (e) {
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetCardFavByCardiddetail',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/GetCardFavByCardiddetail',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

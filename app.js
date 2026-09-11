@@ -1,4 +1,5 @@
 //app.js
+const request = require('./utils/request')
 App({
   onLaunch: function () {
     var that = this;
@@ -148,8 +149,8 @@ App({
     return new Promise((resolve, reject) => {
       wx.login({
         success: res => {
-          wx.request({
-            url: 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxIsLogInOrNot',
+          request.authRequest({
+            url: 'http://localhost:44705/api/UserPage/AppHxIsLogInOrNot',
             method: 'POST',
             header: {
               'content-type': 'application/json' 
@@ -216,8 +217,8 @@ App({
     return new Promise((resolve, reject) => {
       wx.login({
         success: res => {
-          wx.request({
-            url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetLoginStatus',
+          request.authRequest({
+            url: 'http://localhost:44705/api/UserPage/GetLoginStatus',
             method: 'GET',
             header: {
               'content-type': 'application/json' 
@@ -263,6 +264,7 @@ App({
     })
   },
   clearLoginState: function () {
+    request.clearAuthToken()
     this.globalData.userInfo = null
     this.globalData.storename = ''
     this.globalData.UserName = ''

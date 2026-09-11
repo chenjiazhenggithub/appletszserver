@@ -1,4 +1,5 @@
 const app = getApp()
+const request = require('../../../utils/request')
 Page({
   data: {
     useRegisterno: '',
@@ -40,8 +41,8 @@ Page({
       'data': []
     })
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetUnVerificationList',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/GetUnVerificationList',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

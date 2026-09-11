@@ -1,6 +1,7 @@
 
 const app = getApp()
 const util  = require('../../../utils/util.js')
+const request = require('../../../utils/request')
 Page({
 
   /**
@@ -96,8 +97,8 @@ Page({
   },
   getdata(params) {
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/VehicleDataSeach',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/VehicleDataSeach',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -162,8 +163,8 @@ Page({
       classname: app.globalData.ClassName,
       CardId: this.data.CardId
     }
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/VehicleDataSeachByID',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/VehicleDataSeachByID',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

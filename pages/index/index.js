@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
+const request = require('../../utils/request')
 
 Page({
   data: {
@@ -308,8 +309,8 @@ Page({
               success: item => {
                 if (app.page) {
                   if (app.page === '集团登录') {
-                    wx.request({
-                      url: 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxScanBefore',
+                    request.authRequest({
+                      url: 'http://localhost:44705/api/UserPage/AppHxScanBefore',
                       method: 'POST',
                       header: {
                         'content-type': 'application/json' 
@@ -338,8 +339,8 @@ Page({
                               content: `使用车牌号：${tishiRegisterno}，\r\n此次核销项目为：【${tishiname}】是否确认核销？`,
                               success (modalres) {
                                 if (modalres.confirm) {
-                                  wx.request({
-                                    url: 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxScanLogin',
+                                  request.authRequest({
+                                    url: 'http://localhost:44705/api/UserPage/AppHxScanLogin',
                                     method: 'POST',
                                     header: {
                                       'content-type': 'application/json' 
@@ -409,7 +410,7 @@ Page({
                     })
                   } else {
                     // wx.request({
-                    //   url: 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxScanBefore',
+                    //   url: 'http://localhost:44705/api/UserPage/AppHxScanBefore',
                     //   method: 'POST',
                     //   header: {
                     //     'content-type': 'application/json' 
@@ -439,7 +440,7 @@ Page({
                     //           success (modalres) {
                     //             if (modalres.confirm) {
                     //               wx.request({
-                    //                 url: 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxScanLogin',
+                    //                 url: 'http://localhost:44705/api/UserPage/AppHxScanLogin',
                     //                 method: 'POST',
                     //                 header: {
                     //                   'content-type': 'application/json' 
@@ -507,8 +508,8 @@ Page({
                     //     })
                     //   }            
                     // })
-                    wx.request({
-                      url: 'https://applet.myszgroup.cn:7779/api/UserPage/dodecfav_wechat',
+                    request.authRequest({
+                      url: 'http://localhost:44705/api/UserPage/dodecfav_wechat',
                       method: 'POST',
                       header: {
                         'content-type': 'application/json' 
@@ -577,18 +578,22 @@ Page({
               let params = {}
               if (app.page === '集团登录') {
                 params.Model = item.code
-                url = 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxLogOut'
+                url = 'http://localhost:44705/api/UserPage/AppHxLogOut'
               } else {
-                url = 'https://applet.myszgroup.cn:7779/api/UserPage/LogOut'
+                url = 'http://localhost:44705/api/UserPage/LogOut'
                 params.code = item.code
               }
-              wx.request({
+              request.authRequest({
                 url: url,
                 method: 'POST',
                 header: {
-                  'content-type': 'application/json' 
+                  'content-type': 'application/json'
                 },
                 data: params,
+                complete: function() {
+                  // 退出登录接口调用后清除本地 Token（接口本身免 Token）
+                  request.clearAuthToken()
+                },
                 success: function(res) {
                   if (res.data.result_code === '0') {
                     if (typeof app.clearLoginState === 'function') {

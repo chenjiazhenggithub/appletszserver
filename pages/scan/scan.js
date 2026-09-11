@@ -3,6 +3,7 @@
 let animation = wx.createAnimation({});
 const app = getApp()
 const cwx = require('../../utils/profunc');
+const request = require('../../utils/request');
 
 function normalizeScanText(value) {
   return String(value == null ? '' : value)
@@ -81,8 +82,8 @@ Page({
         let data = normalizeScanText(e.detail.result)
         wx.login({
          success: function(item) {
-          wx.request({
-            url: 'https://applet.myszgroup.cn:7779/api/UserPage/ScanLogin',
+          request.authRequest({
+            url: 'http://localhost:44705/api/UserPage/ScanLogin',
             method: 'POST',
             header: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -137,8 +138,8 @@ Page({
           RegisterNo: this.data.RegisterNo,
           Model: loginres.code
         }
-        wx.request({
-          url: 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxLogin',
+        request.authRequest({
+          url: 'http://localhost:44705/api/UserPage/AppHxLogin',
           method: 'POST',
           header: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -205,8 +206,8 @@ Page({
         const code = normalizeScanText(trdata.code_results[0].data)
         wx.login({
           success: function(item) {
-           wx.request({
-             url: 'https://applet.myszgroup.cn:7779/api/UserPage/ScanLogin',
+           request.authRequest({
+             url: 'http://localhost:44705/api/UserPage/ScanLogin',
              method: 'POST',
              header: {
                "Content-Type": "application/x-www-form-urlencoded"

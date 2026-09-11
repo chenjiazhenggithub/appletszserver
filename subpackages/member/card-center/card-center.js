@@ -1,4 +1,5 @@
 const app = getApp()
+const request = require('../../../utils/request')
 
 Page({
   data: {
@@ -36,8 +37,8 @@ Page({
   },
   getList: function(e) {
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/GetVouchersList',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/GetVouchersList',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

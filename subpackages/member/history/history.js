@@ -1,6 +1,7 @@
 
 const app = getApp()
 const util  = require('../../../utils/util.js')
+const request = require('../../../utils/request')
 Page({
 
   /**
@@ -59,8 +60,8 @@ Page({
   },
   getList: function(e) {
     const that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/SearchHxHistory',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/SearchHxHistory',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

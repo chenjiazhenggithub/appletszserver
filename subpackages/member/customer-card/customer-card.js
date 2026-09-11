@@ -2,6 +2,7 @@
 const pinyin = require('../vendor/tiny-pinyin/index.js')
 import WxValidate from '../utils/WxValidate.js'
 const cwx = require('../../../utils/profunc.js');
+const request = require('../../../utils/request');
 const app = getApp()
 Page({
 
@@ -493,8 +494,8 @@ Page({
   },
   getlist: function (e) {
     var that = this
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/VehicleData',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/VehicleData',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -554,8 +555,8 @@ Page({
     params.ClassName = this.ClassName
     params.StoreId = this.StoreId
     params.OpUser = this.UserNo
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api//UserPage/RegisterMember',
+    request.authRequest({
+      url: 'http://localhost:44705/api//UserPage/RegisterMember',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

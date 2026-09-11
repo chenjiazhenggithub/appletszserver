@@ -2,6 +2,7 @@
 // 移动动画
 let animation = wx.createAnimation({});
 const app = getApp()
+const request = require('../../utils/request');
 // 提示音
 // let innerAudioContext = wx.createInnerAudioContext()
 // innerAudioContext.src = '/images/beep.mp3'
@@ -46,8 +47,8 @@ Page({
     let data = e.detail.result
     wx.login({
      success: function(item) {
-      wx.request({
-        url: 'https://applet.myszgroup.cn:7779/api/UserPage/ScanLogin',
+      request.authRequest({
+        url: 'http://localhost:44705/api/UserPage/ScanLogin',
         method: 'POST',
         header: {
           "Content-Type": "application/x-www-form-urlencoded"

@@ -1,4 +1,5 @@
 const app = getApp()
+const request = require('../../../utils/request')
 Page({
   data: {
     Password: '',
@@ -29,8 +30,8 @@ Page({
         content: '确认密码和新密码不一致，请重新输入。',
       })
     }
-    wx.request({
-      url: 'https://applet.myszgroup.cn:7779/api/UserPage/UpdateGroupPwd',
+    request.authRequest({
+      url: 'http://localhost:44705/api/UserPage/UpdateGroupPwd',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -72,14 +73,18 @@ Page({
         let url = ''
         let params = {}
         params.Model = item.code
-        url = 'https://applet.myszgroup.cn:7779/api/UserPage/AppHxLogOut'
-        wx.request({
+        url = 'http://localhost:44705/api/UserPage/AppHxLogOut'
+        request.authRequest({
           url: url,
           method: 'POST',
           header: {
-            'content-type': 'application/json' 
+            'content-type': 'application/json'
           },
           data: params,
+          complete: function() {
+            // 退出登录接口调用后清除本地 Token（接口本身免 Token）
+            request.clearAuthToken()
+          },
           success: function(res) {
             if (res.data.result_code === '0') {
               wx.navigateTo({
