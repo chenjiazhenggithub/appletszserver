@@ -2,6 +2,7 @@
 const app = getApp()
 const util  = require('../../../utils/util.js')
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 Page({
 
   /**
@@ -98,7 +99,7 @@ Page({
   getdata(params) {
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/VehicleDataSeach',
+      url: config.API_BASE_URL + '/api/UserPage/VehicleDataSeach',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -164,7 +165,7 @@ Page({
       CardId: this.data.CardId
     }
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/VehicleDataSeachByID',
+      url: config.API_BASE_URL + '/api/UserPage/VehicleDataSeachByID',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

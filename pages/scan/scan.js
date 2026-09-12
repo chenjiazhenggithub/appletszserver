@@ -4,6 +4,7 @@ let animation = wx.createAnimation({});
 const app = getApp()
 const cwx = require('../../utils/profunc');
 const request = require('../../utils/request');
+const config = require('../../utils/config');
 
 function normalizeScanText(value) {
   return String(value == null ? '' : value)
@@ -83,7 +84,7 @@ Page({
         wx.login({
          success: function(item) {
           request.authRequest({
-            url: 'http://localhost:44705/api/UserPage/ScanLogin',
+            url: config.API_BASE_URL + '/api/UserPage/ScanLogin',
             method: 'POST',
             header: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -139,7 +140,7 @@ Page({
           Model: loginres.code
         }
         request.authRequest({
-          url: 'http://localhost:44705/api/UserPage/AppHxLogin',
+          url: config.API_BASE_URL + '/api/UserPage/AppHxLogin',
           method: 'POST',
           header: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -207,7 +208,7 @@ Page({
         wx.login({
           success: function(item) {
            request.authRequest({
-             url: 'http://localhost:44705/api/UserPage/ScanLogin',
+             url: config.API_BASE_URL + '/api/UserPage/ScanLogin',
              method: 'POST',
              header: {
                "Content-Type": "application/x-www-form-urlencoded"

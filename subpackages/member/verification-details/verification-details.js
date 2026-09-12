@@ -1,5 +1,6 @@
 const app = getApp()
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 Page({
   data: {
     useRegisterno: '',
@@ -42,7 +43,7 @@ Page({
     })
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/GetUnVerificationList',
+      url: config.API_BASE_URL + '/api/UserPage/GetUnVerificationList',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

@@ -1,5 +1,6 @@
 const app = getApp()
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 Page({
   data: {
     number: '',
@@ -31,7 +32,7 @@ Page({
     })
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/GetCouponPresentHistory',
+      url: config.API_BASE_URL + '/api/UserPage/GetCouponPresentHistory',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

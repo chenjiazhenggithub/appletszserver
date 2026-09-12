@@ -1,3 +1,4 @@
+const config = require('./config')
 function OcrIdCard(access_token){
   return new Promise(function(resolve,reject){
     var that = this;
@@ -10,7 +11,7 @@ function OcrIdCard(access_token){
         wx.showLoading({ title: '识别中' })
         const request = require('./request')
         request.safeUploadFile({
-          url: 'http://localhost:44705/api/UserPage/UploadAllValuesImgeByData?typenum=1', //仅为示例，非真实的接口地址
+          url: config.API_BASE_URL + '/api/UserPage/UploadAllValuesImgeByData?typenum=1', //仅为示例，非真实的接口地址
           filePath: res.tempFilePaths[0],
           name: 'appletimg',
           // header: {
@@ -34,7 +35,7 @@ function OcrIdCard(access_token){
         //     console.log(ans.data)
         //     wx.showLoading({ title: '识别中' })
         //     wx.request({
-        //       url: 'http://localhost:44705/api/UserPage/ScanIdCardData',
+        //       url: config.API_BASE_URL + '/api/UserPage/ScanIdCardData',
         //       method: 'POST',
         //       header: {
         //         'Content-Type': 'application/x-www-form-urlencoded'
@@ -68,7 +69,7 @@ function sacnimg(src){
     //识别二维码
     const request = require('./request')
     request.authUploadFile({
-      url: 'http://localhost:44705/api/UserPage/QRcode', //仅为示例，非真实的接口地址
+      url: config.API_BASE_URL + '/api/UserPage/QRcode', //仅为示例，非真实的接口地址
       filePath: src,
       name: 'appletimg',
       // header: {

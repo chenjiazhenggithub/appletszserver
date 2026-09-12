@@ -1,5 +1,6 @@
 const app = getApp()
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 // 防抖函数
 function debounce(fn, delay) {
   let timeout = null;
@@ -58,7 +59,7 @@ Page({
   getList: function (e) {
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/GetCouponPresentLog',
+      url: config.API_BASE_URL + '/api/UserPage/GetCouponPresentLog',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -99,7 +100,7 @@ Page({
   getbalance: function () {
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/GetCardFavByCardiddetail',
+      url: config.API_BASE_URL + '/api/UserPage/GetCardFavByCardiddetail',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -161,7 +162,7 @@ Page({
           return
         }
         request.authRequest({
-          url: 'http://localhost:44705/api/UserPage/DeleteCouponPresent',
+          url: config.API_BASE_URL + '/api/UserPage/DeleteCouponPresent',
           method: 'GET',
           header: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -214,7 +215,7 @@ Page({
     this.data.buttonloading = true
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/PresentRequired',
+      url: config.API_BASE_URL + '/api/UserPage/PresentRequired',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -279,7 +280,7 @@ Page({
     this.data.buttonloading = true
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/CommitUsedInfo',
+      url: config.API_BASE_URL + '/api/UserPage/CommitUsedInfo',
       method: 'POST',
       header: {
         'content-type': 'application/json', // 设置请求的 header

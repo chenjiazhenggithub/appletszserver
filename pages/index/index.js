@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp()
 const request = require('../../utils/request')
+const config = require('../../utils/config')
 
 Page({
   data: {
@@ -310,7 +311,7 @@ Page({
                 if (app.page) {
                   if (app.page === '集团登录') {
                     request.authRequest({
-                      url: 'http://localhost:44705/api/UserPage/AppHxScanBefore',
+                      url: config.API_BASE_URL + '/api/UserPage/AppHxScanBefore',
                       method: 'POST',
                       header: {
                         'content-type': 'application/json' 
@@ -340,7 +341,7 @@ Page({
                               success (modalres) {
                                 if (modalres.confirm) {
                                   request.authRequest({
-                                    url: 'http://localhost:44705/api/UserPage/AppHxScanLogin',
+                                    url: config.API_BASE_URL + '/api/UserPage/AppHxScanLogin',
                                     method: 'POST',
                                     header: {
                                       'content-type': 'application/json' 
@@ -410,7 +411,7 @@ Page({
                     })
                   } else {
                     // wx.request({
-                    //   url: 'http://localhost:44705/api/UserPage/AppHxScanBefore',
+                    //   url: config.API_BASE_URL + '/api/UserPage/AppHxScanBefore',
                     //   method: 'POST',
                     //   header: {
                     //     'content-type': 'application/json' 
@@ -440,7 +441,7 @@ Page({
                     //           success (modalres) {
                     //             if (modalres.confirm) {
                     //               wx.request({
-                    //                 url: 'http://localhost:44705/api/UserPage/AppHxScanLogin',
+                    //                 url: config.API_BASE_URL + '/api/UserPage/AppHxScanLogin',
                     //                 method: 'POST',
                     //                 header: {
                     //                   'content-type': 'application/json' 
@@ -509,7 +510,7 @@ Page({
                     //   }            
                     // })
                     request.authRequest({
-                      url: 'http://localhost:44705/api/UserPage/dodecfav_wechat',
+                      url: config.API_BASE_URL + '/api/UserPage/dodecfav_wechat',
                       method: 'POST',
                       header: {
                         'content-type': 'application/json' 
@@ -578,9 +579,9 @@ Page({
               let params = {}
               if (app.page === '集团登录') {
                 params.Model = item.code
-                url = 'http://localhost:44705/api/UserPage/AppHxLogOut'
+                url = config.API_BASE_URL + '/api/UserPage/AppHxLogOut'
               } else {
-                url = 'http://localhost:44705/api/UserPage/LogOut'
+                url = config.API_BASE_URL + '/api/UserPage/LogOut'
                 params.code = item.code
               }
               request.authRequest({

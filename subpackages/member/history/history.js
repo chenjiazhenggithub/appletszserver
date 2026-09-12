@@ -2,6 +2,7 @@
 const app = getApp()
 const util  = require('../../../utils/util.js')
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 Page({
 
   /**
@@ -61,7 +62,7 @@ Page({
   getList: function(e) {
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/SearchHxHistory',
+      url: config.API_BASE_URL + '/api/UserPage/SearchHxHistory',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

@@ -1,5 +1,6 @@
 const app = getApp()
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 
 Page({
   data: {
@@ -38,7 +39,7 @@ Page({
   getList: function(e) {
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/GetVouchersList',
+      url: config.API_BASE_URL + '/api/UserPage/GetVouchersList',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

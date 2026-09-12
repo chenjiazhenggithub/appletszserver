@@ -3,6 +3,7 @@
 let animation = wx.createAnimation({});
 const app = getApp()
 const request = require('../../utils/request');
+const config = require('../../utils/config');
 // 提示音
 // let innerAudioContext = wx.createInnerAudioContext()
 // innerAudioContext.src = '/images/beep.mp3'
@@ -48,7 +49,7 @@ Page({
     wx.login({
      success: function(item) {
       request.authRequest({
-        url: 'http://localhost:44705/api/UserPage/ScanLogin',
+        url: config.API_BASE_URL + '/api/UserPage/ScanLogin',
         method: 'POST',
         header: {
           "Content-Type": "application/x-www-form-urlencoded"

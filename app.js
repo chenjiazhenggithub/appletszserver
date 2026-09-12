@@ -1,5 +1,6 @@
 //app.js
 const request = require('./utils/request')
+const config = require('./utils/config')
 App({
   onLaunch: function () {
     var that = this;
@@ -150,7 +151,7 @@ App({
       wx.login({
         success: res => {
           request.authRequest({
-            url: 'http://localhost:44705/api/UserPage/AppHxIsLogInOrNot',
+            url: config.API_BASE_URL + '/api/UserPage/AppHxIsLogInOrNot',
             method: 'POST',
             header: {
               'content-type': 'application/json' 
@@ -218,7 +219,7 @@ App({
       wx.login({
         success: res => {
           request.authRequest({
-            url: 'http://localhost:44705/api/UserPage/GetLoginStatus',
+            url: config.API_BASE_URL + '/api/UserPage/GetLoginStatus',
             method: 'GET',
             header: {
               'content-type': 'application/json' 

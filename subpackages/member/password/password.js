@@ -1,5 +1,6 @@
 const app = getApp()
 const request = require('../../../utils/request')
+const config = require('../../../utils/config')
 Page({
   data: {
     Password: '',
@@ -31,7 +32,7 @@ Page({
       })
     }
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/UpdateGroupPwd',
+      url: config.API_BASE_URL + '/api/UserPage/UpdateGroupPwd',
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -73,7 +74,7 @@ Page({
         let url = ''
         let params = {}
         params.Model = item.code
-        url = 'http://localhost:44705/api/UserPage/AppHxLogOut'
+        url = config.API_BASE_URL + '/api/UserPage/AppHxLogOut'
         request.authRequest({
           url: url,
           method: 'POST',

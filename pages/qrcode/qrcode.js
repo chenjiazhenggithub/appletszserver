@@ -2,6 +2,7 @@ const app = getApp()
 const moment = require('moment')
 const qrCode = require('../../utils/weapp.qrcode.min');
 const request = require('../../utils/request');
+const config = require('../../utils/config');
 
 Page({
   data: {
@@ -46,7 +47,7 @@ Page({
   getList: function (e) {
     const that = this
     request.authRequest({
-      url: 'http://localhost:44705/api/UserPage/GetCardFavByCardiddetail',
+      url: config.API_BASE_URL + '/api/UserPage/GetCardFavByCardiddetail',
       method: 'GET',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"

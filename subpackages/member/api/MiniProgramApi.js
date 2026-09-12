@@ -1,7 +1,8 @@
 const request = require('../../../utils/request');
+const config = require('../../../utils/config');
 
-const BASE_URL = 'https://szbk.bjcls.cn:7718'; // http://47.95.203.61:7718  //https://szbk.bjcls.cn:7718
-const FORDJOIN_BASE_URL = 'https://szbk.bjcls.cn:5123';
+const BASE_URL = config.SZBK_BASE_URL; // 地址在 utils/config.js 统一配置
+const FORDJOIN_BASE_URL = config.FORDJOIN_BASE_URL;
 const DEEPSEEK_DEFAULT_ENDPOINT = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
 const DEEPSEEK_DEFAULT_MODEL = 'deepseek-v3';
 const DEEPSEEK_DEFAULT_API_KEY = 'sk-04c2193aa7c3476e849acf63b7eaa720';

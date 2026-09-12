@@ -3,7 +3,9 @@
 
 // ==================== JWT Token 认证层 ====================
 // 仅对该域名的接口启用 JWT 认证（其他域名如 szbk.bjcls.cn 不受影响）
-const AUTH_BASE_URL = 'http://localhost:44705'
+const config = require('./config')
+// 认证域名统一由 utils/config.js 配置，修改地址请改 config.js
+const AUTH_BASE_URL = config.API_BASE_URL
 const TOKEN_STORAGE_KEY = 'auth_token'
 // 401 时跳转的登录页
 const LOGIN_PAGE_ROUTE = 'pages/scan/scan'
